@@ -41,7 +41,6 @@ public:
 	Sprite* GetTexture() { return texture; }
 	Tile** GetTiles() { return tiles; }
 	Camera* GetCamera() { return camera; }
-	std::map<Map*, std::vector<Vector2>> GetDoorPositions() { return doors; }
 
 	Map* LoadMap();
 
@@ -60,7 +59,7 @@ protected:
 	int tileSize;
 	int zoneLevel;
 	Camera* camera = nullptr;
-	std::map<Map*, std::vector<Vector2>> doors;
+	std::map<int, std::vector<Vector2>> doors;
 	Character* player;
 
 private:
