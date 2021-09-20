@@ -7,6 +7,8 @@
 #include "../Camera/Camera.h"
 #include "../Core/Vector2.h"
 #include "../Character/Character.h"
+#include "../Character/Npc.h"
+#include "../Character/Trainer.h"
 
 //tile types to know what we walk on
 enum class TileType
@@ -28,6 +30,8 @@ public:
 	virtual ~Map();
 	virtual Map* LoadNewMap() = 0;
 
+	void InitMap();
+
 public:
 	//Gets width of the zone
 	int GetWidth() const { return width; }
@@ -41,15 +45,17 @@ public:
 	Sprite* GetTexture() { return texture; }
 	Tile** GetTiles() { return tiles; }
 	Camera* GetCamera() { return camera; }
+	std::vector<Character*> GetNpcs() { return npcs; }
+	Character* GetCollidedNpc() { return collidedNpc; }
+	void SetCollidedNpc(Character* npc) { collidedNpc = npc; }
 
-	Map* LoadMap();
+	int EnterDoor(int camX, int camY);
 
 private:
 	void LoadSpriteEntities();
 
 protected:
 	//Initializes map / creating dynamic 2d array of tile struct
-	void InitMap();
 	Tile** tiles;
 	std::string filePath;
 	std::string texturePath;
@@ -60,11 +66,13 @@ protected:
 	int zoneLevel;
 	Camera* camera = nullptr;
 	std::map<int, std::vector<Vector2>> doors;
+	std::vector<Character*> npcs;
 	Character* player;
 
 private:
 
 private:
+	Character* collidedNpc;
 	std::vector<SpriteEntity*> sprites;
 	Sprite* texture = nullptr;
 };

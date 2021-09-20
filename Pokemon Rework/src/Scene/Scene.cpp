@@ -18,5 +18,8 @@ void Scene::Update()
 
 void Scene::LoadNewScene(Map* map)
 {
+	delete current;
 	current = map;
+	current->InitMap();
+	current->GetCamera()->SetTarget(&player->GetPosition());
 }

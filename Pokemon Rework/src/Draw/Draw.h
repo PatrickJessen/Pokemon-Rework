@@ -17,6 +17,7 @@ private:
 	void DrawMapForeground();
 
 	void DrawCharacter();
+	void DrawNpcCharacters();
 
 private:
 	Map* map = nullptr;

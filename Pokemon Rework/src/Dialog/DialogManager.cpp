@@ -15,7 +15,9 @@ void DialogManager::ShowDialog(Dialog dialog)
 	if (isActive)
 	{
 		this->dialog = dialog;
-		TypeDialog(dialog.Lines[0]);
+		HandleUpdate();
+		TypeDialog(dialog.Lines[currentLine]);
+		DrawBox();
 	}
 }
 
@@ -24,7 +26,7 @@ void DialogManager::HandleUpdate()
 	if (Input::KeyPressed(Key::SPACE))
 	{
 		currentLine++;
-		if (currentLine < dialog.Lines.size() - 1)
+		if (currentLine < dialog.Lines.size())
 		{
 			TypeDialog(dialog.Lines[currentLine]);
 		}

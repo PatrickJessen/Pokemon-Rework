@@ -4,7 +4,7 @@
 class Npc : public Character
 {
 public:
-	Npc(std::string name, std::string texturePath, int width, int height);
+	Npc(std::string name, std::string texturePath, int width, int height, int srcW, int srcH);
 	~Npc();
 
 public:

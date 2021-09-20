@@ -20,6 +20,7 @@ void Draw::Update(Map* map, Character* character)
     DrawCharacter();
     //draw before this
     DrawMapForeground();
+    DrawNpcCharacters();
 }
 
 void Draw::DrawMapImage()
@@ -63,4 +64,14 @@ void Draw::DrawCharacter()
     character->GetPosition().x -= map->GetCamera()->GetCamera().x;
     character->GetPosition().y -= map->GetCamera()->GetCamera().y;
     SDL_RenderCopy(Window::GetRender(), character->GetSprite()->tex, &character->GetSrcRect(), &character->GetPosition());
+}
+
+void Draw::DrawNpcCharacters()
+{
+    for (int i = 0; i < map->GetNpcs().size(); i++)
+    {
+        map->GetNpcs()[i]->GetPosition().x -= map->GetCamera()->GetCamera().x;
+        map->GetNpcs()[i]->GetPosition().y -= map->GetCamera()->GetCamera().y;
+        SDL_RenderCopy(Window::GetRender(), map->GetNpcs()[i]->GetSprite()->tex, &map->GetNpcs()[i]->GetSrcRect(), &map->GetNpcs()[i]->GetPosition());
+    }
 }

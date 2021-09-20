@@ -2,6 +2,7 @@
 #include "../Dialog/Dialog.h"
 #include "../Core/Sprite.h"
 #include "SDL.h"
+#include "../Core/Collision.h"
 
 enum class AnimationDirection
 {
@@ -20,17 +21,22 @@ public:
 	SDL_Rect& GetCollisionPoint() { return collisionPoint; }
 	SDL_Rect& GetSrcRect() { return srcRect; }
 	Sprite* GetSprite() { return sprite; }
+	Dialog GetDialog() { return dialog; }
 	int GetXPos() { return xPos; }
 	int GetYPos() { return yPos; }
 	int GetWidth() { return width; }
 	int GetHeight() { return height; }
 	int GetSpeed() { return speed; }
+	std::string GetName() { return name; }
+	AnimationDirection GetDirection() { return animDir; }
+	void SetDirection(AnimationDirection dir) { animDir = dir; }
 
 public:
 	void SetSrcRect(int x, int y, int w, int h);
 	void SetXPos(int value) { xPos = value; }
 	void SetYPos(int value) { yPos = value; }
 	void SetXYPosition(int x, int y) { xPos = x; yPos = y; }
+	Dialog dialog;
 
 protected:
 	int xPos = 0;
@@ -44,5 +50,5 @@ protected:
 	SDL_Rect collisionPoint;
 	std::string texturePath;
 	Sprite* sprite = nullptr;
-	Dialog dialog;
+	AnimationDirection animDir;
 };

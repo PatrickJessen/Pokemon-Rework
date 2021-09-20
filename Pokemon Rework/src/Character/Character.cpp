@@ -22,7 +22,23 @@ void Character::Animate(AnimationDirection dir, int tickTimes)
 void Character::Update()
 {
 	position = { xPos, yPos, width, height };
-	collisionPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 10 };
+	switch (animDir)
+	{
+	case AnimationDirection::UP:
+		collisionPoint = { xPos + width / 2, yPos, 10, 30 };
+		break;
+	case AnimationDirection::DOWN:
+		collisionPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 30 };
+		break;
+	case AnimationDirection::LEFT:
+		collisionPoint = { xPos, yPos + height / 2 + 5, 30, 10 };
+		break;
+	case AnimationDirection::RIGHT:
+		collisionPoint = { xPos + width / 2, yPos + height / 2 + 5, 30, 10 };
+		break;
+	default:
+		break;
+	}
 }
 
 void Character::SetSrcRect(int x, int y, int w, int h)

@@ -1,12 +1,13 @@
 #include "PlayerController.h"
 
-PlayerController::PlayerController(Character* player, Map* map)
-	: player(player), map(map)
+PlayerController::PlayerController(Character* player, Map* map, DialogManager* manager)
+	: player(player), map(map), manager(manager)
 {
 }
 
 PlayerController::~PlayerController()
 {
+	
 }
 
 void PlayerController::Update()
@@ -55,6 +56,8 @@ void PlayerController::Update()
 	{
 		player->Animate((AnimationDirection)lastDirection, 1);
 	}
+	player->SetDirection((AnimationDirection)lastDirection);
+	Interact();
 }
 
 bool PlayerController::TileCollision()
@@ -62,4 +65,15 @@ bool PlayerController::TileCollision()
 	if (map->GetTiles()[player->GetCollisionPoint().y / map->GetTileSize() / map->GetCamera()->GetZoom()][player->GetCollisionPoint().x / map->GetTileSize() / map->GetCamera()->GetZoom()].type == TileType::Collision)
 		return true;
 	return false;
+}
+
+void PlayerController::Interact()
+{
+	for (int i = 0; i < map->GetNpcs().size(); i++)
+		if (Collision::AABB(player->GetCollisionPoint(), map->GetNpcs()[i]->GetPosition()))
+			if (Input::KeyPressed(Key::E))
+			{
+				map->SetCollidedNpc(map->GetNpcs()[i]);
+				manager->SetIsActive(true);
+			}
 }

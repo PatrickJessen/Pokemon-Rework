@@ -17,11 +17,13 @@ public:
 private:
 	void ConstantUpdate();
 	void WalkInDoor();
+	void CheckForInteraction();
 
 private:
 	Scene* scene = nullptr;
 	PlayerController* controller = nullptr;
 	GameState state = GameState::Free;
 	Map* nextMap = nullptr;
+	DialogManager* dialogManager = nullptr;
 };
 

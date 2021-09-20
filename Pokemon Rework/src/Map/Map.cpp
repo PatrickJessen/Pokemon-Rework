@@ -5,7 +5,28 @@ using namespace SimpleFileHandler;
 
 Map::~Map()
 {
-    
+    for (int i = 0; i < sprites.size(); i++)
+    {
+        delete sprites[i]->sprite;
+        delete sprites[i];
+    }
+    sprites.clear();
+
+    delete texture;
+    doors.clear();
+
+    for (int x = 0; x < width; x++)
+    {
+        delete[] tiles[x];
+    }
+    delete[] tiles;
+    tiles = nullptr;
+
+    for (int i = 0; i < npcs.size(); i++)
+    {
+        delete npcs[i];
+    }
+    npcs.clear();
 }
 
 void Map::InitMap()
@@ -28,21 +49,24 @@ void Map::InitMap()
     LoadSpriteEntities();
 }
 
-Map* Map::LoadMap()
+
+int Map::EnterDoor(int camX, int camY)
 {
-    int y = player->GetCollisionPoint().x / GetTileSize() / camera->GetZoom();
-    int x = player->GetCollisionPoint().y / GetTileSize() / camera->GetZoom();
-    for (auto map : GetDoorPositions())
+    int x = player->GetCollisionPoint().x / tileSize / camera->GetZoom();
+    int y = player->GetCollisionPoint().y / tileSize / camera->GetZoom();
+    //std::cout << x << ", " << y << "\n";
+    for (int i = 0; i < doors.size(); i++)
     {
-        for (int i = 0; i < map.second.size(); i++)
+        for (int j = 0; j < doors[i].size(); j++)
         {
-            if (map.second[i].x == x && map.second[i].y == y)
+            //std::cout << doorsPosition[i][j].x << ", " << doorsPosition[i][j].y << " : " << x << ", " << y << "\n";
+            if (y == doors[i][j].x && x == doors[i][j].y)
             {
-                return map.first;
+                return i;
             }
         }
     }
-    return nullptr;
+    return -1;
 }
 
 void Map::LoadSpriteEntities()

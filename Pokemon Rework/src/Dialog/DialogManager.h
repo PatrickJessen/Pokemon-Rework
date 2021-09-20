@@ -16,6 +16,7 @@ public:
 	void DrawBox();
 	void TypeDialog(std::string line);
 	void SetIsActive(bool value) { isActive = value; }
+	bool GetIsActive() { return isActive; }
 
 private:
 	bool isActive = false;
