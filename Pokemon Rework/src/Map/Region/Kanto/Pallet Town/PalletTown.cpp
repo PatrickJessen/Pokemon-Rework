@@ -16,11 +16,20 @@ PalletTown::PalletTown(Character* player, int width, int height, int tileSize, i
 
 	doors.emplace(1, std::vector<Vector2> { Vector2(0, 11), Vector2(0, 12), Vector2(0, 13)
 		, Vector2(0, 14), Vector2(0, 15), Vector2(0, 16), Vector2(0, 17) });
-
-	npcs.push_back(new Npc("Shit", "Assets/Trainers/Gary.png", 75, 75, 60, 65));
-	npcs[0]->SetXYPosition(13 * tileSize * camera->GetZoom(), 13 * tileSize * camera->GetZoom());
+	AnimationDirection dii;
+	npcs.push_back(new Npc("Shit", "Assets/Trainers/Gary.png", 75, 75, 62, 65));
+	npcs.push_back(new Trainer("Trainer", "Assets/Trainers/Gary.png", "Assets/Characters/garyFront.png", 75, 75, 62, 65, 500));
+	npcs[1]->SetXYPosition(10 * tileSize * camera->GetZoom(), 10 * tileSize * camera->GetZoom());
+	npcs[1]->dialog.Lines.push_back("You think you can defeat me?");
+	npcs[0]->SetXYPosition(10 * tileSize * camera->GetZoom(), 5 * tileSize * camera->GetZoom());
 	npcs[0]->dialog.Lines.push_back("Have you visited Oak's lab?");
 	npcs[0]->dialog.Lines.push_back("You can get your first pokemon there");
+	//npcs[0]->AddToMovePattern(NpcPattern(Vector2(npcs[0]->GetXPos() / tileSize / zoom * 2, 0), AnimationDirection::RIGHT));
+	//npcs[0]->AddToMovePattern(NpcPattern(Vector2(npcs[0]->GetXPos() / tileSize / zoom * -2, 0), AnimationDirection::LEFT));
+	//npcs[0]->AddToMovePattern(NpcPattern(Vector2(0, npcs[0]->GetXPos() / tileSize / zoom + -4), AnimationDirection::UP));
+	npcs[0]->AddToMovePattern(NpcPattern(Vector2(npcs[0]->GetXPos() / tileSize / zoom + 4, 0), AnimationDirection::RIGHT));
+	//npcs[0]->AddToMovePattern(NpcPattern(Vector2(0, npcs[0]->GetXPos() / tileSize / zoom + 4), AnimationDirection::DOWN));
+	npcs[0]->AddToMovePattern(NpcPattern(Vector2(npcs[0]->GetXPos() / tileSize / zoom + -4, 0), AnimationDirection::LEFT));
 }
 
 PalletTown::~PalletTown()

@@ -3,7 +3,7 @@
 Scene::Scene()
 {
 	draw = new Draw();
-	player = new Trainer("Ash", "Assets/Characters/Ash.png", "Assets/Characters/AshBack.png", 75, 75, 100);
+	player = new Trainer("Ash", "Assets/Characters/Ash.png", "Assets/Characters/AshBack.png", 75, 75, 62, 65, 100);
 }
 
 Scene::~Scene()

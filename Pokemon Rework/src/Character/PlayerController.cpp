@@ -71,9 +71,29 @@ void PlayerController::Interact()
 {
 	for (int i = 0; i < map->GetNpcs().size(); i++)
 		if (Collision::AABB(player->GetCollisionPoint(), map->GetNpcs()[i]->GetPosition()))
-			if (Input::KeyPressed(Key::E))
+			if (Input::KeyPressed(Key::E) && !map->GetNpcs()[i]->GetIsWalking())
 			{
 				map->SetCollidedNpc(map->GetNpcs()[i]);
 				DialogManager::GetInstance()->SetIsActive(true);
+				if (player->GetYPos() < map->GetCollidedNpc()->GetYPos())
+				{
+					map->GetCollidedNpc()->Animate(AnimationDirection::UP, 1);
+					return;
+				}
+				if (player->GetXPos() < map->GetCollidedNpc()->GetXPos())
+				{
+					map->GetCollidedNpc()->Animate(AnimationDirection::LEFT, 1);
+					return;
+				}
+				if (player->GetYPos() > map->GetCollidedNpc()->GetYPos())
+				{
+					map->GetCollidedNpc()->Animate(AnimationDirection::DOWN, 1);
+					return;
+				}
+				if (player->GetXPos() > map->GetCollidedNpc()->GetXPos())
+				{
+					map->GetCollidedNpc()->Animate(AnimationDirection::RIGHT, 1);
+					return;
+				}
 			}
 }

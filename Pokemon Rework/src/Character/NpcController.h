@@ -1,22 +1,22 @@
 #pragma once
 #include "../Dialog/DialogManager.h"
 #include "Character.h"
+#include <thread>
 
 enum class NpcState { Idle, Walking };
 
 class NpcController
 {
-public:
-	NpcController(Character* character);
-	~NpcController();
 
 public:
-	void Update();
+	void Update(Character* character, Character* player);
+	void TrainerInSight(Character* character, Character* player);
 
 private:
-	Character* character;
-	std::vector<int> movePattern;
 	NpcState state;
 	int idleTimer = 0;
-	int timeBetweenWalking = 2;
+	int timeBetweenWalking = 200;
+	int currentPattern = 0;
+	AnimationDirection dir;
+	bool isWalking = false;
 };

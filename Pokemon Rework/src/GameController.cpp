@@ -1,5 +1,7 @@
 #include "GameController.h"
 #include "Core/Collision.h"
+#include <iostream>
+#include "Battle/BattleTrainer.h"
 
 GameController::GameController()
 {
@@ -24,11 +26,17 @@ void GameController::Update()
 	case GameState::Free:
 		controller->Update();
 		WalkInDoor();
+		for (int i = 0; i < scene->GetMap()->GetNpcs().size(); i++)
+			if (!Collision::AABB(scene->GetPlayer()->GetPosition(), scene->GetMap()->GetNpcs()[i]->GetCollisionPoint()))
+				npcController.Update(scene->GetMap()->GetNpcs()[i], scene->GetPlayer());
+			else
+				scene->GetMap()->GetNpcs()[i]->SetIsWalking(false);
 		break;
 	case GameState::Battle:
+		battle->Update();
 		break;
 	case GameState::Dialog:
-		dialogManager->ShowDialog(scene->GetMap()->GetCollidedNpc()->dialog);
+			dialogManager->ShowDialog(scene->GetMap()->GetCollidedNpc()->dialog);
 		break;
 	default:
 		break;
@@ -38,11 +46,12 @@ void GameController::Update()
 void GameController::ConstantUpdate()
 {
 	scene->Update();
-	scene->GetPlayer()->Update();
+	scene->GetPlayer()->UpdateCharacter();
 	scene->GetMap()->GetCamera()->Update();
+	scene->GetMap()->Collision();
 	for (int i = 0; i < scene->GetMap()->GetNpcs().size(); i++)
 	{
-		scene->GetMap()->GetNpcs()[i]->Update();
+		scene->GetMap()->GetNpcs()[i]->UpdateCharacter();
 	}
 
 	if (dialogManager->GetIsActive())
@@ -50,6 +59,11 @@ void GameController::ConstantUpdate()
 		state = GameState::Dialog;
 	}
 	else if (!dialogManager->GetIsActive())
+		state = GameState::Free;
+
+	if (dynamic_cast<Trainer*>(scene->GetPlayer())->GetIsInBattle())
+		state = GameState::Battle;
+	else
 		state = GameState::Free;
 }
 

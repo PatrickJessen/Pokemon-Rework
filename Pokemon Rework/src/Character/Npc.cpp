@@ -13,3 +13,7 @@ Npc::Npc(std::string name, std::string texturePath, int width, int height, int s
 Npc::~Npc()
 {
 }
+
+void Npc::Update()
+{
+}

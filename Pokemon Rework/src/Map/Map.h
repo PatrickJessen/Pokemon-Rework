@@ -50,6 +50,7 @@ public:
 	void SetCollidedNpc(Character* npc) { collidedNpc = npc; }
 
 	int EnterDoor(int camX, int camY);
+	void Collision();
 
 private:
 	void LoadSpriteEntities();
@@ -70,7 +71,8 @@ protected:
 	Character* player;
 
 private:
-
+	bool first = true;
+	TileType temp = TileType::Exit;
 private:
 	Character* collidedNpc;
 	std::vector<SpriteEntity*> sprites;

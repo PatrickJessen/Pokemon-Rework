@@ -69,6 +69,35 @@ int Map::EnterDoor(int camX, int camY)
     return -1;
 }
 
+void Map::Collision()
+{
+    //for (int i = 0; i < npcs.size(); i++)
+    //{
+    //    if (Collision::AABB(player->GetPosition(), npcs[i]->GetCollisionPoint()))
+    //    {
+    //        player->SetCanWalk(false);
+    //    }
+    //    else
+    //        player->SetCanWalk(true);
+    //    //if (first)
+    //    //{
+    //    //    temp = tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type;
+    //    //    first = false;
+    //    //}
+    //    //if (npcs[i]->GetIsWalking())
+    //    //{
+    //    //    //trainers[0]->SetXYPos(trainers[0]->GetXPos(), trainers[0]->GetYPos() + 40);
+    //    //    tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type = temp;
+    //    //    first = true;
+    //    //}
+    //    //else
+    //    //{
+    //    //    tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type = TileType::Collision;
+    //    //}
+
+    //}
+}
+
 void Map::LoadSpriteEntities()
 {
     std::ifstream fs(imagePath.c_str(), std::ifstream::in);

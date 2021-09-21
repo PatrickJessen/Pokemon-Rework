@@ -18,9 +18,13 @@ void Character::Animate(AnimationDirection dir, int tickTimes)
 		srcRect = { ((int)spriteTick % 4) * 62, 65, 62, 65 };
 	else if (dir == AnimationDirection::RIGHT)
 		srcRect = { ((int)spriteTick % 4) * 62, 2 * 65, 62, 65 };
+	animDir = dir;
 }
-void Character::Update()
+
+
+void Character::UpdateCharacter()
 {
+	Update();
 	position = { xPos, yPos, width, height };
 	switch (animDir)
 	{
@@ -41,10 +45,25 @@ void Character::Update()
 	}
 }
 
-void Character::Move(Vector2 moveVec)
+void Character::Move(NpcPattern moveVec)
 {
-	xPos += moveVec.x;
-	yPos += moveVec.y;
+	if (moveVec.direction == AnimationDirection::RIGHT)
+		xPos += moveVec.vector2.x / 10;
+	if (moveVec.direction == AnimationDirection::LEFT)
+		xPos -= moveVec.vector2.x / 5;
+	if (moveVec.direction == AnimationDirection::UP)
+		yPos += moveVec.vector2.y - 10;
+	if (moveVec.direction == AnimationDirection::DOWN)
+		yPos += moveVec.vector2.y / 10;
+	//if (xPos != xPos + moveVec.vector2.x)
+		//xPos += speed;
+	//else if (yPos != yPos + moveVec.vector2.y)
+		//yPos -= speed;
+}
+
+void Character::AddToMovePattern(NpcPattern pattern)
+{
+	movePattern.push_back(pattern);
 }
 
 void Character::SetSrcRect(int x, int y, int w, int h)
