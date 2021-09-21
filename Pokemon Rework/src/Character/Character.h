@@ -9,6 +9,14 @@ enum class AnimationDirection
 	UP, DOWN, LEFT, RIGHT
 };
 
+struct Vector2
+{
+	int x;
+	int y;
+	Vector2(int x, int y)
+		:x(x),y(y) {}
+};
+
 class Character
 {
 public:
@@ -30,6 +38,7 @@ public:
 	std::string GetName() { return name; }
 	AnimationDirection GetDirection() { return animDir; }
 	void SetDirection(AnimationDirection dir) { animDir = dir; }
+	void Move(Vector2 moveVec);
 
 public:
 	void SetSrcRect(int x, int y, int w, int h);

@@ -41,6 +41,12 @@ void Character::Update()
 	}
 }
 
+void Character::Move(Vector2 moveVec)
+{
+	xPos += moveVec.x;
+	yPos += moveVec.y;
+}
+
 void Character::SetSrcRect(int x, int y, int w, int h)
 {
 	srcRect = { x, y, w, h };

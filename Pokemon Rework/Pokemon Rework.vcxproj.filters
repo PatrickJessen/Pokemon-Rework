@@ -75,6 +75,9 @@
     <ClCompile Include="src\Map\Region\Kanto\Routes\Route1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Character\NpcController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libfreetype-6.dll" />
@@ -170,6 +173,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Map\SpawnPokes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Character\NpcController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,12 +2,20 @@
 #include <thread>
 #include <chrono>
 
+DialogManager* instance;
+
 DialogManager::DialogManager()
 {
 	TTF_Init();
 	font = TTF_OpenFont("Assets/Font/arial.ttf", 20);
 	mBox = new Sprite("Assets/GFX/msgBox.png", SDL_ScaleMode::SDL_ScaleModeNearest);
 	fontSize = { Window::GetWidth() / 2 - 190, Window::GetHeight() - 115, 400, 40 };
+	instance = this;
+}
+
+DialogManager* DialogManager::GetInstance()
+{
+	return instance;
 }
 
 void DialogManager::ShowDialog(Dialog dialog)

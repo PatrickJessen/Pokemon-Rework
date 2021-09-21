@@ -1,7 +1,7 @@
 #include "PlayerController.h"
 
-PlayerController::PlayerController(Character* player, Map* map, DialogManager* manager)
-	: player(player), map(map), manager(manager)
+PlayerController::PlayerController(Character* player, Map* map)
+	: player(player), map(map)
 {
 }
 
@@ -74,6 +74,6 @@ void PlayerController::Interact()
 			if (Input::KeyPressed(Key::E))
 			{
 				map->SetCollidedNpc(map->GetNpcs()[i]);
-				manager->SetIsActive(true);
+				DialogManager::GetInstance()->SetIsActive(true);
 			}
 }

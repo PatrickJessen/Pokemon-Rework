@@ -8,7 +8,7 @@ GameController::GameController()
 	scene->GetPlayer()->SetXYPosition(5 * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom(), 5 * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom());
 	//scene->GetPlayer()->SetXYPosition(0, 0);
 	dialogManager = new DialogManager();
-	controller = new PlayerController(scene->GetPlayer(), scene->GetMap(), dialogManager);
+	controller = new PlayerController(scene->GetPlayer(), scene->GetMap());
 }
 
 GameController::~GameController()
@@ -59,7 +59,7 @@ void GameController::WalkInDoor()
 	{
 		scene->LoadNewScene(scene->GetMap()->LoadNewMap());
 		delete controller;
-		controller = new PlayerController(scene->GetPlayer(), scene->GetMap(), dialogManager);
+		controller = new PlayerController(scene->GetPlayer(), scene->GetMap());
 	}
 }
 

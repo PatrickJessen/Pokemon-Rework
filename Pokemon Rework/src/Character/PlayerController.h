@@ -7,7 +7,7 @@
 class PlayerController
 {
 public:
-	PlayerController(Character* player, Map* map, DialogManager* manager);
+	PlayerController(Character* player, Map* map);
 	~PlayerController();
 
 public:
@@ -19,7 +19,6 @@ private:
 
 private:
 	Character* player = nullptr;
-	DialogManager* manager = nullptr;
 	Map* map = nullptr;
 	int lastDirection = 0;
 };

@@ -11,6 +11,7 @@ public:
 	DialogManager();
 
 public:
+	static DialogManager* GetInstance();
 	void ShowDialog(Dialog dialog);
 	void HandleUpdate();
 	void DrawBox();
