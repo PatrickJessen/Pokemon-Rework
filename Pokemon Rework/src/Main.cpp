@@ -10,6 +10,7 @@ int main()
 		gController->Update();
 		window->Update();
 		window->HandleEvents();
+		SDL_Delay(1);
 	}
 
 	window->Clean();

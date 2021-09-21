@@ -53,4 +53,8 @@ private:
 	Pokemon* pokebag[5];
 	Pokemon* starterPoke = nullptr;
 	std::vector<Pokemon*> pc;
+	int timer = 0;
+	int xOverflow = 0;
+	int yOverflow = 0;
+	int step = 0;
 };

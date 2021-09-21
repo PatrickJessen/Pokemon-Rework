@@ -43,7 +43,10 @@ void Trainer::Update()
 		break;
 	}
 
-	SDL_RenderDrawRect(Window::GetRender(), &viewRect);
+	//if (yPos % 64 == 0)
+	//	return;
+	step = 64 * (SDL_GetTicks() / 1000);
+	//SDL_RenderDrawRect(Window::GetRender(), &viewRect);
 }
 
 bool Trainer::IsWholeTeamDead()
@@ -63,10 +66,28 @@ void Trainer::WalkUp()
 {
 	//speed = 1;
 	if (canWalk)
+	{
 		if (Input::KeyState(Key::LSHIFT))
 			yPos -= speed + 5;
 		else
-			yPos -= (int)(speed * Window::GetDeltatime());
+		{
+			//yPos -= SDL_GetTicks() / 1000;
+			int d = 64 - (yPos % 64);
+			if (step > d)
+				yPos -= d;
+			else
+				yPos -= step;
+			//yPos -= 64 - (yPos % 64);// (int)(speed * Window::GetDeltatime());
+			/*if (timer != 10)
+			{
+				timer++;
+			}
+			else
+			{*/
+				//timer = 0;
+			//}
+		}
+	}
 }
 
 void Trainer::WalkDown()

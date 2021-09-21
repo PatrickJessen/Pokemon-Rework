@@ -75,7 +75,7 @@ void PlayerController::Interact()
 			{
 				map->SetCollidedNpc(map->GetNpcs()[i]);
 				DialogManager::GetInstance()->SetIsActive(true);
-				if (player->GetYPos() < map->GetCollidedNpc()->GetYPos())
+				/*if (player->GetYPos() < map->GetCollidedNpc()->GetYPos())
 				{
 					map->GetCollidedNpc()->Animate(AnimationDirection::UP, 1);
 					return;
@@ -94,6 +94,6 @@ void PlayerController::Interact()
 				{
 					map->GetCollidedNpc()->Animate(AnimationDirection::RIGHT, 1);
 					return;
-				}
+				}*/
 			}
 }

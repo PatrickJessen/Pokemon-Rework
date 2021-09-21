@@ -15,6 +15,7 @@ GameController::GameController()
 
 GameController::~GameController()
 {
+	
 }
 
 void GameController::Update()
@@ -63,8 +64,8 @@ void GameController::ConstantUpdate()
 
 	if (dynamic_cast<Trainer*>(scene->GetPlayer())->GetIsInBattle())
 		state = GameState::Battle;
-	else
-		state = GameState::Free;
+	//else
+	//	state = GameState::Free;
 }
 
 void GameController::WalkInDoor()

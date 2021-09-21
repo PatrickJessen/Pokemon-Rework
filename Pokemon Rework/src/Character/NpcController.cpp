@@ -39,7 +39,7 @@ void NpcController::Update(Character* character, Character* player)
 		}
 	}
 
-	TrainerInSight(character, player);
+	//TrainerInSight(character, player);
 }
 
 void NpcController::TrainerInSight(Character* character, Character* player)

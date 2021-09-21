@@ -87,8 +87,9 @@ void Window::Update()
 {
 	tp2 = std::chrono::system_clock::now();
 	std::chrono::duration<float> elapsedTime = tp2 - tp1;
+	float x = std::chrono::duration_cast<std::chrono::milliseconds>(tp2 - tp1).count();
 	tp1 = tp2;
-	deltatime = elapsedTime.count() * 100.0f;
+	deltatime = elapsedTime.count() * 64;
 
 	Render();
 	//HandleEvents();
