@@ -1,5 +1,4 @@
 #include "BattleHUD.h"
-#include "../Character/Trainer.h"
 
 void BattleHUD::SetData()
 {
@@ -26,20 +25,20 @@ void BattleHUD::DrawBattleFrame()
 	SDL_RenderCopy(Window::GetRender(), battleground.tex, NULL, &battleRect);
 }
 
-void BattleHUD::DrawTrainerEntrance(Character* trainer)
+void BattleHUD::DrawTrainerEntrance(Trainer* trainer)
 {
 	if (trainerRect.x != 450)
 	{
 		trainerRect.x += 2;
 	}
-	SDL_RenderCopy(Window::GetRender(), static_cast<Trainer*>(trainer)->GetBattleTexture()->tex, NULL, &trainerRect);
+	SDL_RenderCopy(Window::GetRender(), trainer->GetBattleTexture()->tex, NULL, &trainerRect);
 }
 
-void BattleHUD::DrawEnemyTrainerEntrance(Character* enemy)
+void BattleHUD::DrawEnemyTrainerEntrance(Trainer* enemy)
 {
 	if (opponentRect.x != 840)
 		opponentRect.x -= 2;
-	SDL_RenderCopy(Window::GetRender(), dynamic_cast<Trainer*>(enemy)->GetBattleTexture()->tex, NULL, &opponentRect);
+	SDL_RenderCopy(Window::GetRender(), enemy->GetBattleTexture()->tex, NULL, &opponentRect);
 }
 
 void BattleHUD::DrawEnemyPokemonEntrance(Pokemon* enemy)
@@ -49,7 +48,7 @@ void BattleHUD::DrawEnemyPokemonEntrance(Pokemon* enemy)
 	SDL_RenderCopy(Window::GetRender(), enemy->GetFrontTexture()->tex, NULL, &opponentRect);
 }
 
-void BattleHUD::DrawEntrance(Character* trainer, Pokemon* opponent)
+void BattleHUD::DrawEntrance(Trainer* trainer, Pokemon* opponent)
 {
 }
 

@@ -87,3 +87,8 @@ Pokemon* Trainer::GetPokemonByName(const char* pokemonName)
 			if (pokemonName == pokebag[i]->GetName())
 				return pokebag[i];
 }
+
+void Trainer::AddBattleDialog(std::string message)
+{
+	battleDialog.Lines.push_back(message);
+}

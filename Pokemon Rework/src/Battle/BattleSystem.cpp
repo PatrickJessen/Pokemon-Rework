@@ -15,7 +15,7 @@ void BattleSystem::PlayerAction()
 
 void BattleSystem::PlayerMove()
 {
-	//bHud.DrawMoves(player->GetInBattlePokemon());
+	bHud.DrawMoves(player->GetInBattlePokemon());
 }
 
 
@@ -53,23 +53,23 @@ void BattleSystem::HandleActionSelection()
 void BattleSystem::HandleMoveSelection()
 {
 	if (Input::KeyPressed(Key::S))
-		if (currentMove < dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetMoves().size() - 1)
+		if (currentMove < player->GetInBattlePokemon()->GetMoves().size() - 1)
 			++currentMove;
 	if (Input::KeyPressed(Key::W))
 		if (currentMove > 0)
 			--currentMove;
 	
-	bHud.UpdateActionSelection(currentMove, dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetMoves().size());
+	bHud.UpdateActionSelection(currentMove, player->GetInBattlePokemon()->GetMoves().size());
 }
 
 Pokemon* BattleSystem::GetNextHealthyPokemon()
 {
 	for (int i = 0; i < 4; i++)
 	{
-		if (dynamic_cast<Trainer*>(player)->GetPokemonAtIndex(i) != nullptr && dynamic_cast<Trainer*>(player)->GetPokemonAtIndex(i)->GetHP() > 0)
+		if (player->GetPokemonAtIndex(i) != nullptr && player->GetPokemonAtIndex(i)->GetHP() > 0)
 		{
-			message = "Go " + dynamic_cast<Trainer*>(player)->GetPokemonAtIndex(i)->GetName();
-			return dynamic_cast<Trainer*>(player)->GetPokemonAtIndex(i);
+			message = "Go " + player->GetPokemonAtIndex(i)->GetName();
+			return player->GetPokemonAtIndex(i);
 		}
 	}
 	return nullptr;
@@ -114,7 +114,7 @@ int BattleSystem::GetHighestDamageMove(Pokemon* pokemon)
 int BattleSystem::IsEnemyMoveEffective(Pokemon* pokemon)
 {
 	for (int i = 0; i < pokemon->GetMoves().size(); i++)
-		if (TypeChart::GetEffectiveness(pokemon->GetMoveAt(i)->GetType(), dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetType()) == 2.0f)
+		if (TypeChart::GetEffectiveness(pokemon->GetMoveAt(i)->GetType(), player->GetInBattlePokemon()->GetType()) == 2.0f)
 			return i;
 	return 0;
 }

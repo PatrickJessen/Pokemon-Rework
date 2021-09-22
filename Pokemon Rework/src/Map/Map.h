@@ -14,7 +14,7 @@
 //tile types to know what we walk on
 enum class TileType
 {
-	Depth, Water, Collision, Door, Exit, Grass, TallGrass, Grave, Sand, Rock, DeepWater, Ice, Waterfall, Bumpers, NPC
+	Depth, Water, Collision, Door, Exit, Grass, TallGrass, Grave, Sand, Rock, DeepWater, Ice, Waterfall, Bumpers, NPC, NONE
 };
 
 struct Tile

@@ -31,12 +31,11 @@ void Character::Animate(AnimationDirection dir, int tickTimes)
 	animDir = dir;
 }
 
-
 void Character::UpdateCharacter(float elapsedTime)
 {
 	Update(elapsedTime);
 	position = { xPos, yPos, width, height };
-	collisionPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 10 };
+	collisionPoint = { xPos + width / 4, yPos + height / 2 + 5, width / 2, 10 };
 	SDL_RenderDrawRect(Window::GetRender(), &collisionPoint);
 	switch (animDir)
 	{
@@ -89,4 +88,9 @@ void Character::SetCollisionPoint(int x, int y, int w, int h)
 	collisionPoint.y = y;
 	collisionPoint.w = w;
 	collisionPoint.h = h;
+}
+
+void Character::AddDialog(std::string message)
+{
+	dialog.Lines.push_back(message);
 }

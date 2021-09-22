@@ -130,25 +130,15 @@ void PlayerController::Interact()
 			{
 				map->SetCollidedNpc(map->GetNpcs()[i]);
 				DialogManager::GetInstance()->SetIsActive(true);
-				/*if (player->GetYPos() < map->GetCollidedNpc()->GetYPos())
-				{
-					map->GetCollidedNpc()->Animate(AnimationDirection::UP, 1);
-					return;
-				}
-				if (player->GetXPos() < map->GetCollidedNpc()->GetXPos())
-				{
-					map->GetCollidedNpc()->Animate(AnimationDirection::LEFT, 1);
-					return;
-				}
-				if (player->GetYPos() > map->GetCollidedNpc()->GetYPos())
-				{
+				if (player->GetDirection() == AnimationDirection::UP)
 					map->GetCollidedNpc()->Animate(AnimationDirection::DOWN, 1);
-					return;
-				}
-				if (player->GetXPos() > map->GetCollidedNpc()->GetXPos())
-				{
+				else if (player->GetDirection() == AnimationDirection::DOWN)
+					map->GetCollidedNpc()->Animate(AnimationDirection::UP, 1);
+				else if (player->GetDirection() == AnimationDirection::LEFT)
 					map->GetCollidedNpc()->Animate(AnimationDirection::RIGHT, 1);
-					return;
-				}*/
+				else if (player->GetDirection() == AnimationDirection::RIGHT)
+					map->GetCollidedNpc()->Animate(AnimationDirection::LEFT, 1);
+				break;
 			}
+
 }

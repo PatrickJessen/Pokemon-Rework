@@ -31,6 +31,8 @@ public:
 	Pokemon* GetStarterPoke() { return starterPoke; }
 	Pokemon* GetPokeBag() { return pokebag[5]; }
 	Sprite* GetBattleTexture() { return battleSprite; }
+	Dialog GetBattleDialog() { return battleDialog; }
+	void AddBattleDialog(std::string message);
 
 public:
 	int GetMoney() { return money; }
@@ -55,4 +57,6 @@ private:
 	int xOverflow = 0;
 	int yOverflow = 0;
 	int step = 0;
+
+	Dialog battleDialog;
 };

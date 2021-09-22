@@ -1,5 +1,8 @@
 #pragma once
 #include "BattleSystem.h"
+#include "../Character/Character.h"
+#include "../Character/Trainer.h"
+#include <future>
 
 class BattleTrainer : public BattleSystem
 {
@@ -19,8 +22,10 @@ public:
 
 
 private:
-	Character* enemy;
+	Trainer* enemy;
 
 	std::vector<std::string> winningQuotes;
 	std::vector<std::string> losingQuotes;
+
+	bool hit = false;
 };

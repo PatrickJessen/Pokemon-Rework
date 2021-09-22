@@ -12,9 +12,12 @@ class Character
 {
 public:
 	virtual ~Character();
+
 	void Animate(AnimationDirection dir, int tickTimes);
+
 public:
 	virtual void Update(float elapsedTime) = 0;
+
 public:
 	void UpdateCharacter(float elapsedTime);
 	SDL_Rect& GetPosition() { return position; }
@@ -49,7 +52,7 @@ public:
 	void SetIsWalking(bool value) { isWalking = value; }
 	void SetCanWalk(bool value) { canWalk = value; }
 	void SetCollisionPoint(int x, int y, int w, int h);
-	Dialog dialog;
+	void AddDialog(std::string message);
 
 protected:
 	int xPos = 0;
@@ -68,6 +71,7 @@ protected:
 	AnimationDirection animDir;
 	WalkDirection walkDir = WalkDirection::NONE;
 	std::vector<NpcPattern> movePattern;
+	Dialog dialog;
 	bool canWalk = true;
 	bool isTrainer = false;
 	int deltaX = 0;

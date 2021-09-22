@@ -1,12 +1,11 @@
 #pragma once
-#include "../Character/Character.h"
 #include "../Character/Trainer.h"
 #include "BattleHUD.h"
 #include <thread>
 
 enum class BattleState
 {
-	Start, PlayerAction, PlayerMove, EnemyMove, Death, SwitchPoke, Busy, Run, End, Stop
+	Start, PlayerAction, PlayerMove, Death, SwitchPoke, Busy, Run, End, Stop
 };
 
 class BattleSystem
@@ -35,7 +34,7 @@ public:
 	int RandNum(int x, int y);
 
 protected:
-	Character* player;
+	Trainer* player;
 	Pokemon* poke;
 	BattleState state;
 	BattleHUD bHud;
@@ -46,8 +45,8 @@ protected:
 	SDL_Rect enemyHpBar;
 	int playerHpMaxWidth;
 	int enemyHpMaxWidth;
-	//std::thread* t;
 	int timer = 0;
 	bool iWon = false;
 	bool end = false;
+	std::thread t1;
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "../Pokes/Pokemon.h"
-#include "../Character/Character.h"
+#include "../Character/Trainer.h"
 #include "SDL_ttf.h"
 #include "../UI/Text.h"
 
@@ -11,10 +11,10 @@ class BattleHUD
 public:
 	void SetData();
 	void DrawBattleFrame();
-	void DrawTrainerEntrance(Character* trainer);
-	void DrawEnemyTrainerEntrance(Character* enemy);
+	void DrawTrainerEntrance(Trainer* trainer);
+	void DrawEnemyTrainerEntrance(Trainer* enemy);
 	void DrawEnemyPokemonEntrance(Pokemon* enemy);
-	void DrawEntrance(Character* trainer, Pokemon* opponent);
+	void DrawEntrance(Trainer* trainer, Pokemon* opponent);
 	void DrawPlayerPokemonEntrance(Pokemon* player);
 	void DrawEnemyTrainerPokemonEntrance(Pokemon* opponent);
 	void DrawPokemonBar(Pokemon* player, Pokemon* opponent);

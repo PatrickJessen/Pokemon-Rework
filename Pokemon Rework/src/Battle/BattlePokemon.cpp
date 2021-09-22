@@ -3,11 +3,11 @@
 
 BattlePokemon::BattlePokemon(Character* player, Pokemon* pokemon)
 {
-	this->player = player;
+	this->player = static_cast<Trainer*>(player);
 	this->poke = pokemon;
 	pokemon->OnPokemonCreate();
 	bHud.SetData();
-	dynamic_cast<Trainer*>(player)->SetInBattlePokemon(GetNextHealthyPokemon());
+	this->player->SetInBattlePokemon(GetNextHealthyPokemon());
 	playerHpMaxWidth = 175;
 	enemyHpMaxWidth = 175;
 	enemyHpBar = { 417, 301, enemyHpMaxWidth, 10 };
@@ -21,7 +21,7 @@ void BattlePokemon::SetupBattle()
 		state = BattleState::End;
 		iWon = true;
 	}
-	else if (dynamic_cast<Trainer*>(player)->GetInBattlePokemon() == nullptr)
+	else if (player->GetInBattlePokemon() == nullptr)
 	{
 		state = BattleState::End;
 		iWon = false;
@@ -31,10 +31,6 @@ void BattlePokemon::SetupBattle()
 void BattlePokemon::Update()
 {
 	SetupBattle();
-	
-	//SetupBattle();
-	/*if (state == BattleState::EnemyMove)
-		t = new std::thread(([this] {this->HandleEnemyAction(); }));*/
 
 	UpdateUI();
 
@@ -60,23 +56,18 @@ void BattlePokemon::Update()
 		PerformPlayerAttack();
 	}
 		break;
-	case BattleState::EnemyMove:
-	{
-		//StartQoroutine(20, &BattlePokemon::PerformEnemyAttack, this);
-	}
-		break;
 	case BattleState::Busy:
 		break;
 	case BattleState::Death:
-		if (bHud.AnimatePlayerDeath(dynamic_cast<Trainer*>(player)->GetInBattlePokemon()))
+		if (bHud.AnimatePlayerDeath(player->GetInBattlePokemon()))
 		{
 			bHud.ClearMoveText(1);
-			dynamic_cast<Trainer*>(player)->SetInBattlePokemon(GetNextHealthyPokemon());
+			player->SetInBattlePokemon(GetNextHealthyPokemon());
 			state = BattleState::SwitchPoke;
 		}
 		break;
 	case BattleState::SwitchPoke:
-		if (bHud.AnimateNextPlayerPokemon(dynamic_cast<Trainer*>(player)->GetInBattlePokemon()))
+		if (bHud.AnimateNextPlayerPokemon(player->GetInBattlePokemon()))
 			state = BattleState::PlayerAction;
 		break;
 	case BattleState::Run:
@@ -99,30 +90,30 @@ void BattlePokemon::PerformPlayerAttack()
 	{
 		if (IGoFirst())
 		{
-			poke->TakeDamage(dynamic_cast<Trainer*>(player)->GetInBattlePokemon(), currentMove);
+			poke->TakeDamage(player->GetInBattlePokemon(), currentMove);
 			//enemyHpBar.w = (poke->GetHP() * enemyHpMaxWidth) / poke->GetStats().MaxHP;
-			message = dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetName() + " Used " + dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetMoveAt(currentMove)->GetMoveName();
+			message = player->GetInBattlePokemon()->GetName() + " Used " + player->GetInBattlePokemon()->GetMoveAt(currentMove)->GetMoveName();
 			if (poke->GetHP() < 0)
 				state = BattleState::End;
 			else
 			{
-				state = BattleState::EnemyMove;
+				t1 = std::thread(&BattlePokemon::PerformEnemyAttack, this);
 			}
 		}
 		else
 		{
-			state = BattleState::EnemyMove;
+			t1 = std::thread(&BattlePokemon::PerformEnemyAttack, this);
 		}
 	}
 }
 
 void BattlePokemon::PerformEnemyAttack()
 {
-	dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->TakeDamage(poke, PrioritiesEnemyMove(poke));
+	player->GetInBattlePokemon()->TakeDamage(poke, PrioritiesEnemyMove(poke));
 	message = poke->GetName() + " Used " + poke->GetMoveAt(PrioritiesEnemyMove(poke))->GetMoveName();
-	if (dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetHP() < 0)
+	if (player->GetInBattlePokemon()->GetHP() < 0)
 	{
-		message = dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetName() + " Fainted!";
+		message = player->GetInBattlePokemon()->GetName() + " Fainted!";
 		state = BattleState::Death;
 		//player->SetInBattlePokemon(GetNextHealthyPokemon());
 	}
@@ -132,7 +123,7 @@ void BattlePokemon::PerformEnemyAttack()
 
 bool BattlePokemon::IGoFirst()
 {
-	if (dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetStats().Speed >= poke->GetStats().Speed)
+	if (player->GetInBattlePokemon()->GetStats().Speed >= poke->GetStats().Speed)
 		return true;
 	return false;
 }
@@ -149,6 +140,11 @@ void BattlePokemon::EndBattle()
 		message = "You got no more pokemons left";
 		end = true;
 	}
+
+	if (Input::KeyPressed(Key::SPACE))
+	{
+		player->SetIsInBattle(false);
+	}
 }
 
 void BattlePokemon::UpdateUI()
@@ -161,8 +157,8 @@ void BattlePokemon::UpdateUI()
 
 		if (state != BattleState::Start)
 		{
-			bHud.DrawPlayerPokemonEntrance(dynamic_cast<Trainer*>(player)->GetInBattlePokemon());
-			bHud.DrawPokemonBar(dynamic_cast<Trainer*>(player)->GetInBattlePokemon(), poke);
+			bHud.DrawPlayerPokemonEntrance(player->GetInBattlePokemon());
+			bHud.DrawPokemonBar(player->GetInBattlePokemon(), poke);
 			bHud.DrawHealthBar(playerHpBar);
 			bHud.DrawHealthBar(enemyHpBar);
 
@@ -176,11 +172,11 @@ void BattlePokemon::UpdateUI()
 void BattlePokemon::UpdateHealth()
 {
 	enemyHpBar.w = (poke->GetHP() * enemyHpMaxWidth) / poke->GetStats().MaxHP;
-	playerHpBar.w = (dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetHP() * enemyHpMaxWidth) / dynamic_cast<Trainer*>(player)->GetInBattlePokemon()->GetStats().MaxHP;
+	playerHpBar.w = (player->GetInBattlePokemon()->GetHP() * enemyHpMaxWidth) / player->GetInBattlePokemon()->GetStats().MaxHP;
 }
 
 void BattlePokemon::Run()
 {
-	dynamic_cast<Trainer*>(player)->SetIsInBattle(false);
+	player->SetIsInBattle(false);
 	end = true;
 }
