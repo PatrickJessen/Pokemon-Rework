@@ -14,10 +14,10 @@ public:
 	~GameController();
 
 public:
-	void Update();
+	void Update(float elapsedTime);
 
 private:
-	void ConstantUpdate();
+	void ConstantUpdate(float elapsedTime);
 	void WalkInDoor();
 	void CheckForInteraction();
 

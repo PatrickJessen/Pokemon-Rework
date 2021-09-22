@@ -14,6 +14,6 @@ Npc::~Npc()
 {
 }
 
-void Npc::Update()
+void Npc::Update(float elapsedTime)
 {
 }

@@ -18,23 +18,23 @@ GameController::~GameController()
 	
 }
 
-void GameController::Update()
+void GameController::Update(float elapsedTime)
 {
-	ConstantUpdate();
+	ConstantUpdate(elapsedTime);
 
 	switch (state)
 	{
 	case GameState::Free:
-		controller->Update();
+		controller->Update(elapsedTime);
 		WalkInDoor();
 		for (int i = 0; i < scene->GetMap()->GetNpcs().size(); i++)
-			if (!Collision::AABB(scene->GetPlayer()->GetPosition(), scene->GetMap()->GetNpcs()[i]->GetCollisionPoint()))
+			if (!Collision::AABB(scene->GetPlayer()->GetPosition(), scene->GetMap()->GetNpcs()[i]->GetInteractPoint()))
 				npcController.Update(scene->GetMap()->GetNpcs()[i], scene->GetPlayer());
 			else
 				scene->GetMap()->GetNpcs()[i]->SetIsWalking(false);
 		break;
 	case GameState::Battle:
-		battle->Update();
+		npcController.GetBattleSystem()->Update();
 		break;
 	case GameState::Dialog:
 			dialogManager->ShowDialog(scene->GetMap()->GetCollidedNpc()->dialog);
@@ -44,15 +44,16 @@ void GameController::Update()
 	}
 }
 
-void GameController::ConstantUpdate()
+void GameController::ConstantUpdate(float elapsedTime)
 {
 	scene->Update();
-	scene->GetPlayer()->UpdateCharacter();
+	scene->GetPlayer()->UpdateCharacter(elapsedTime);
 	scene->GetMap()->GetCamera()->Update();
 	scene->GetMap()->Collision();
+	scene->GetMap()->SetNpcTile();
 	for (int i = 0; i < scene->GetMap()->GetNpcs().size(); i++)
 	{
-		scene->GetMap()->GetNpcs()[i]->UpdateCharacter();
+		scene->GetMap()->GetNpcs()[i]->UpdateCharacter(elapsedTime);
 	}
 
 	if (dialogManager->GetIsActive())

@@ -49,11 +49,50 @@ void Map::InitMap()
     LoadSpriteEntities();
 }
 
+void Map::SetNpcTile()
+{
+    for (int i = 0; i < npcs.size(); i++)
+    {
+        //temp = tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type;
+        //tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type = TileType::NPC;
+
+        if (first)
+        {
+            temp = TileType::Exit;
+            first = false;
+        }
+        if (npcs[i]->GetIsWalking())
+        {
+            if (npcs[i]->GetDirection() == AnimationDirection::LEFT)
+                tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()) + 1].type = temp;
+            if (npcs[i]->GetDirection() == AnimationDirection::RIGHT)
+                tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()) - 1].type = temp;
+            if (npcs[i]->GetDirection() == AnimationDirection::UP)
+                tiles[(npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()) - 1][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom())].type = temp;
+            if (npcs[i]->GetDirection() == AnimationDirection::DOWN)
+                tiles[(npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()) + 1][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom())].type = temp;
+
+            tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom())].type = TileType::NPC;
+            first = true;
+        }
+        else
+        {
+            tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type = TileType::NPC;
+        }
+    }
+   /* for (int j = 0; j < npcs[0]->GetMovePattern().size(); j++)
+    {
+        if (tiles[npcs[0]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[0]->GetCollisionPoint().x / tileSize / camera->GetZoom()].textureX != tiles[npcs[0]->GetMovePattern()[j].vector2.y][npcs[0]->GetMovePattern()[j].vector2.x].textureX)
+            if ((tiles[npcs[0]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[0]->GetCollisionPoint().x / tileSize / camera->GetZoom()].textureY != tiles[npcs[0]->GetMovePattern()[j].vector2.y][npcs[0]->GetMovePattern()[j].vector2.x].textureY))
+                tiles[npcs[0]->GetMovePattern()[j].vector2.y][npcs[0]->GetMovePattern()[j].vector2.x].type = TileType::Exit;
+    }*/
+}
+
 
 int Map::EnterDoor(int camX, int camY)
 {
-    int x = player->GetCollisionPoint().x / tileSize / camera->GetZoom();
-    int y = player->GetCollisionPoint().y / tileSize / camera->GetZoom();
+    int x = player->GetInteractPoint().x / tileSize / camera->GetZoom();
+    int y = player->GetInteractPoint().y / tileSize / camera->GetZoom();
     //std::cout << x << ", " << y << "\n";
     for (int i = 0; i < doors.size(); i++)
     {

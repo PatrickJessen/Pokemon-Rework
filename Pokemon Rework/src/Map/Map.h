@@ -9,6 +9,7 @@
 #include "../Character/Character.h"
 #include "../Character/Npc.h"
 #include "../Character/Trainer.h"
+#include "../Core/IncludePokes.h"
 
 //tile types to know what we walk on
 enum class TileType
@@ -31,6 +32,7 @@ public:
 	virtual Map* LoadNewMap() = 0;
 
 	void InitMap();
+	void SetNpcTile();
 
 public:
 	//Gets width of the zone

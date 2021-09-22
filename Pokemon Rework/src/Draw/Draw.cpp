@@ -31,11 +31,18 @@ void Draw::DrawMapImage()
             SDL_Rect dstRect = { x * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().x, y * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().y, map->GetTileSize() * map->GetCamera()->GetZoom(), map->GetTileSize() * map->GetCamera()->GetZoom() };
             SDL_Rect srcRect = { x * map->GetTileSize(), y * map->GetTileSize(), map->GetTileSize(), map->GetTileSize() };
             SDL_RenderCopy(Window::GetRender(), map->GetTexture()->tex, &srcRect, &dstRect);
-            //if (map->GetTiles()[y][x].type == TileType::Collision)
+            //if (map->GetTiles()[y][x].type == TileType::Exit)
             //{
+            //    SDL_SetRenderDrawColor(Window::GetRender(), 255, 0, 0, 255);
             //    SDL_Rect rect = { map->GetTiles()[y][x].textureX * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().x, map->GetTiles()[y][x].textureY * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().y, map->GetTileSize() * map->GetCamera()->GetZoom(), map->GetTileSize() * map->GetCamera()->GetZoom() };
             //    SDL_RenderDrawRect(Window::GetRender(), &rect);
             //}
+            if (map->GetTiles()[y][x].type == TileType::NPC)
+            {
+                SDL_SetRenderDrawColor(Window::GetRender(), 0, 0, 255, 255);
+                SDL_Rect rect = { map->GetTiles()[y][x].textureX * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().x, map->GetTiles()[y][x].textureY * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().y, map->GetTileSize() * map->GetCamera()->GetZoom(), map->GetTileSize() * map->GetCamera()->GetZoom() };
+                SDL_RenderDrawRect(Window::GetRender(), &rect);
+            }
         }
 }
 

@@ -8,6 +8,6 @@ public:
 	~Npc();
 
 public:
-	virtual void Update() override;
+	virtual void Update(float elapsedTime) override;
 	void RandomMovement();
 };

@@ -89,7 +89,13 @@ void Window::Update()
 	std::chrono::duration<float> elapsedTime = tp2 - tp1;
 	float x = std::chrono::duration_cast<std::chrono::milliseconds>(tp2 - tp1).count();
 	tp1 = tp2;
-	deltatime = elapsedTime.count() * 64;
+	deltatime = elapsedTime.count() * 100;
+
+	Uint32 ticks = SDL_GetTicks();
+	Uint32 seconds = ticks / 2;
+	Uint32 spriteTick = (seconds) % 3;
+
+	//deltatime = (float)spriteTick;
 
 	Render();
 	//HandleEvents();

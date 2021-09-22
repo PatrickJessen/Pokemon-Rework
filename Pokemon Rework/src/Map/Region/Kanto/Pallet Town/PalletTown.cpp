@@ -21,6 +21,8 @@ PalletTown::PalletTown(Character* player, int width, int height, int tileSize, i
 	npcs.push_back(new Trainer("Trainer", "Assets/Trainers/Gary.png", "Assets/Characters/garyFront.png", 75, 75, 62, 65, 500));
 	npcs[1]->SetXYPosition(10 * tileSize * camera->GetZoom(), 10 * tileSize * camera->GetZoom());
 	npcs[1]->dialog.Lines.push_back("You think you can defeat me?");
+	dynamic_cast<Trainer*>(npcs[1])->AddPokemonToBag(new Bulbasaur(5));
+	dynamic_cast<Trainer*>(player)->AddPokemonToBag(new Charmander(5));
 	npcs[0]->SetXYPosition(10 * tileSize * camera->GetZoom(), 5 * tileSize * camera->GetZoom());
 	npcs[0]->dialog.Lines.push_back("Have you visited Oak's lab?");
 	npcs[0]->dialog.Lines.push_back("You can get your first pokemon there");

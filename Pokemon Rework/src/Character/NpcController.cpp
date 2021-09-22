@@ -1,5 +1,6 @@
 #include "NpcController.h"
 #include "Trainer.h"
+#include "../Battle/BattleTrainer.h"
 
 
 void NpcController::Update(Character* character, Character* player)
@@ -39,15 +40,18 @@ void NpcController::Update(Character* character, Character* player)
 		}
 	}
 
-	//TrainerInSight(character, player);
+	TrainerInSight(character, player);
 }
 
 void NpcController::TrainerInSight(Character* character, Character* player)
 {
 	if (character->GetIsTrainer())
-		if (Collision::XYInRect(dynamic_cast<Trainer*>(character)->GetViewRect(), player->GetPosition().x, player->GetPosition().y))
+		if (Collision::XYInRect(dynamic_cast<Trainer*>(character)->GetViewRect(), player->GetPosition().x, player->GetPosition().y) && !dynamic_cast<Trainer*>(player)->GetIsInBattle())
 		{
 			if (!dynamic_cast<Trainer*>(character)->GetIsDefeated())
+			{
+				battle = new BattleTrainer(player, character);
 				dynamic_cast<Trainer*>(player)->SetIsInBattle(true);
+			}
 		}
 }

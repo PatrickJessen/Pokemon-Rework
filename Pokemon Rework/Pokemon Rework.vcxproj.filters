@@ -262,5 +262,8 @@
     <ClInclude Include="src\Battle\BattleTrainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\IncludePokes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

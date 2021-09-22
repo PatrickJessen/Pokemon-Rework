@@ -13,7 +13,7 @@ Trainer::Trainer(std::string name, std::string texturePath, std::string battleTe
 	battleSprite = new Sprite(battleTexturePath, SDL_ScaleMode::SDL_ScaleModeNearest);
 
 	position = { xPos, yPos, width, height };
-	collisionPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 10 };
+	interactPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 10 };
 
 	isTrainer = true;
 }
@@ -23,7 +23,7 @@ Trainer::~Trainer()
 	delete battleSprite;
 }
 
-void Trainer::Update()
+void Trainer::Update(float elapsedTime)
 {
 	switch (animDir)
 	{
@@ -42,11 +42,6 @@ void Trainer::Update()
 	default:
 		break;
 	}
-	yOverflow += -1 / Window::GetDeltatime();
-
-	//if (yPos % 64 == 0)
-	//	return;
-	//step = 64 / (SDL_GetTicks() / 1000);
 	//SDL_RenderDrawRect(Window::GetRender(), &viewRect);
 }
 
@@ -63,50 +58,6 @@ bool Trainer::IsWholeTeamDead()
 	return false;
 }
 
-void Trainer::WalkUp()
-{
-	//speed = 1;
-	if (canWalk)
-	{
-		if (Input::KeyState(Key::LSHIFT))
-			yPos -= speed + 5;
-		else
-		{
-			if (yOverflow <= -64)
-			{
-				yPos -= 64;
-				yOverflow = 0;
-			}
-		}
-	}
-}
-
-void Trainer::WalkDown()
-{
-	if (canWalk)
-		if (Input::KeyState(Key::LSHIFT))
-			yPos += speed + 5;
-		else
-			yPos += (int)(speed * Window::GetDeltatime());
-}
-
-void Trainer::WalkLeft()
-{
-	if (canWalk)
-		if (Input::KeyState(Key::LSHIFT))
-			xPos -= speed + 5;
-		else
-			xPos -= (int)(speed * Window::GetDeltatime());
-}
-
-void Trainer::WalkRight()
-{
-	if (canWalk)
-		if (Input::KeyState(Key::LSHIFT))
-			xPos += speed + 5;
-		else
-			xPos += (int)(speed * Window::GetDeltatime());
-}
 
 void Trainer::AddPokemonToBag(Pokemon* pokemon)
 {

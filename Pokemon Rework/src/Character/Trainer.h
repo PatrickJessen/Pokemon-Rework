@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "../Pokes/Pokemon.h"
 
+
 class Trainer : public Character
 {
 public:
@@ -9,14 +10,10 @@ public:
 	~Trainer();
 
 public:
-	virtual void Update() override;
+	virtual void Update(float elapsedTime) override;
 
 public:
 	bool IsWholeTeamDead();
-	void WalkUp();
-	void WalkDown();
-	void WalkLeft();
-	void WalkRight();
 	void SetViewRect(int x, int y) { viewRect.x - x; viewRect.y - y; }
 	void SetIsInBattle(bool value) { isInBattle = value; }
 	void SetIsDefeated(bool value) { isDefeated = value; }
@@ -37,6 +34,7 @@ public:
 
 public:
 	int GetMoney() { return money; }
+
 
 public:
 	void SetMoney(int value) { money = value; }

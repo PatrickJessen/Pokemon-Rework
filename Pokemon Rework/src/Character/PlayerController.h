@@ -11,14 +11,16 @@ public:
 	~PlayerController();
 
 public:
-	void Update();
-
+	void Update(float elapsedTime);
+	void Walk();
 private:
 	bool TileCollision();
+	bool NPCCollision();
 	void Interact();
 
 private:
 	Character* player = nullptr;
 	Map* map = nullptr;
 	int lastDirection = 0;
+	int timer = 0;
 };

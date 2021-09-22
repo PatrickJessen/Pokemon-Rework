@@ -8,37 +8,49 @@ Character::~Character()
 void Character::Animate(AnimationDirection dir, int tickTimes)
 {
 	Uint32 ticks = SDL_GetTicks();
-	Uint32 seconds = ticks / 150 - (speed * 3);
-	Uint32 spriteTick = (seconds) % tickTimes;
+	Uint32 seconds = ticks / 1000;
+	Uint32 spriteTick = (ticks / 100) % tickTimes;
+
 	if (dir == AnimationDirection::UP)
-		srcRect = { ((int)spriteTick % 4) * 62, 3 * 65, 62, 65 };
+	{
+		srcRect = { (int)spriteTick * 62, 3 * 65, 62, 65 };
+	}		
 	else if (dir == AnimationDirection::DOWN)
-		srcRect = { ((int)spriteTick % 4) * 62, 0, 62, 65 };
+	{
+		srcRect = { (int)spriteTick * 62, 0, 62, 65 };
+	}
 	else if (dir == AnimationDirection::LEFT)
-		srcRect = { ((int)spriteTick % 4) * 62, 65, 62, 65 };
+	{
+		srcRect = { (int)spriteTick * 62, 65, 62, 65 };
+	}
 	else if (dir == AnimationDirection::RIGHT)
-		srcRect = { ((int)spriteTick % 4) * 62, 2 * 65, 62, 65 };
+	{
+		srcRect = { (int)spriteTick * 62, 2 * 65, 62, 65 };
+	}
+	//SDL_Delay(20);
 	animDir = dir;
 }
 
 
-void Character::UpdateCharacter()
+void Character::UpdateCharacter(float elapsedTime)
 {
-	Update();
+	Update(elapsedTime);
 	position = { xPos, yPos, width, height };
+	collisionPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 10 };
+	SDL_RenderDrawRect(Window::GetRender(), &collisionPoint);
 	switch (animDir)
 	{
 	case AnimationDirection::UP:
-		collisionPoint = { xPos + width / 2, yPos, 10, 30 };
+		interactPoint = { xPos + width / 2, yPos, 10, 30 };
 		break;
 	case AnimationDirection::DOWN:
-		collisionPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 30 };
+		interactPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 30 };
 		break;
 	case AnimationDirection::LEFT:
-		collisionPoint = { xPos, yPos + height / 2 + 5, 30, 10 };
+		interactPoint = { xPos, yPos + height / 2 + 5, 30, 10 };
 		break;
 	case AnimationDirection::RIGHT:
-		collisionPoint = { xPos + width / 2, yPos + height / 2 + 5, 30, 10 };
+		interactPoint = { xPos + width / 2, yPos + height / 2 + 5, 30, 10 };
 		break;
 	default:
 		break;
@@ -69,4 +81,12 @@ void Character::AddToMovePattern(NpcPattern pattern)
 void Character::SetSrcRect(int x, int y, int w, int h)
 {
 	srcRect = { x, y, w, h };
+}
+
+void Character::SetCollisionPoint(int x, int y, int w, int h)
+{
+	collisionPoint.x = x;
+	collisionPoint.y = y;
+	collisionPoint.w = w;
+	collisionPoint.h = h;
 }
