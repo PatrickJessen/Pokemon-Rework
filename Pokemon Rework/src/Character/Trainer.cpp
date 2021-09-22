@@ -42,10 +42,11 @@ void Trainer::Update()
 	default:
 		break;
 	}
+	yOverflow += -1 / Window::GetDeltatime();
 
 	//if (yPos % 64 == 0)
 	//	return;
-	step = 64 * (SDL_GetTicks() / 1000);
+	//step = 64 / (SDL_GetTicks() / 1000);
 	//SDL_RenderDrawRect(Window::GetRender(), &viewRect);
 }
 
@@ -71,21 +72,11 @@ void Trainer::WalkUp()
 			yPos -= speed + 5;
 		else
 		{
-			//yPos -= SDL_GetTicks() / 1000;
-			int d = 64 - (yPos % 64);
-			if (step > d)
-				yPos -= d;
-			else
-				yPos -= step;
-			//yPos -= 64 - (yPos % 64);// (int)(speed * Window::GetDeltatime());
-			/*if (timer != 10)
+			if (yOverflow <= -64)
 			{
-				timer++;
+				yPos -= 64;
+				yOverflow = 0;
 			}
-			else
-			{*/
-				//timer = 0;
-			//}
 		}
 	}
 }
