@@ -35,7 +35,7 @@ void Character::UpdateCharacter(float elapsedTime)
 {
 	Update(elapsedTime);
 	position = { xPos, yPos, width, height };
-	collisionPoint = { xPos + width / 4, yPos + height / 2 + 5, width / 2, 10 };
+	//collisionPoint = { xPos + width / 4, yPos + height / 2 + 5, width / 2, 10 };
 	SDL_RenderDrawRect(Window::GetRender(), &collisionPoint);
 	switch (animDir)
 	{

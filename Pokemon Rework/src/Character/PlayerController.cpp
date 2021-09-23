@@ -16,7 +16,7 @@ void PlayerController::Update(float elapsedTime)
 	if (Input::KeyState(Key::W))
 	{
 		player->SetWalkDirection(WalkDirection::UP);
-		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 2, player->GetYPos() + player->GetHeight() / 2 + 5, 10, 10);
+		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 2, player->GetYPos() + player->GetHeight() / 4 - 10, 10, 10);
 	}
 	else if (Input::KeyState(Key::S))
 	{
@@ -26,16 +26,17 @@ void PlayerController::Update(float elapsedTime)
 	else if (Input::KeyState(Key::A))
 	{
 		player->SetWalkDirection(WalkDirection::LEFT);
-		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 2 - 15, player->GetYPos() + player->GetHeight() / 2 + 10, 10, 10);
+		player->SetCollisionPoint(player->GetXPos() - player->GetWidth() / 16 + 10, player->GetYPos() + player->GetHeight() / 2 + 10, 10, 10);
 	}
 	else if (Input::KeyState(Key::D))
 	{
 		player->SetWalkDirection(WalkDirection::RIGHT);
-		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 2 + 10, player->GetYPos() + player->GetHeight() / 2 + 10, 10, 10 );
+		player->SetCollisionPoint(player->GetXPos() + player->GetWidth(), player->GetYPos() + player->GetHeight() / 2 + 10, player->GetWidth() / 2, 10 );
 	}
 	else
 	{
 		player->SetIsWalking(false);
+		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 4, player->GetYPos() + player->GetHeight() / 2 + 5, player->GetWidth() / 2, 10);
 		//player->Animate((AnimationDirection)lastDirection, 1);
 	}
 	Walk();
@@ -110,7 +111,9 @@ void PlayerController::Walk()
 
 bool PlayerController::TileCollision()
 {
-	if (map->GetTiles()[player->GetCollisionPoint().y / map->GetTileSize() / map->GetCamera()->GetZoom()][player->GetCollisionPoint().x / map->GetTileSize() / map->GetCamera()->GetZoom()].type == TileType::Collision)
+	/*if (map->GetTiles()[player->GetCollisionPoint().y / map->GetTileSize() / map->GetCamera()->GetZoom()][player->GetCollisionPoint().x / map->GetTileSize() / map->GetCamera()->GetZoom()].type == TileType::Collision)
+		return true;*/
+	if (map->GetTiles()[(player->GetCollisionPoint().y) / map->GetTileSize() / map->GetCamera()->GetZoom()][(player->GetCollisionPoint().x) / map->GetTileSize() / map->GetCamera()->GetZoom()].type == TileType::Collision)
 		return true;
 	return false;
 }

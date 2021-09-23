@@ -37,12 +37,12 @@ void Draw::DrawMapImage()
             //    SDL_Rect rect = { map->GetTiles()[y][x].textureX * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().x, map->GetTiles()[y][x].textureY * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().y, map->GetTileSize() * map->GetCamera()->GetZoom(), map->GetTileSize() * map->GetCamera()->GetZoom() };
             //    SDL_RenderDrawRect(Window::GetRender(), &rect);
             //}
-            if (map->GetTiles()[y][x].type == TileType::NONE)
-            {
+            //if (map->GetTiles()[y][x].type == TileType::NONE)
+            //{
                 SDL_SetRenderDrawColor(Window::GetRender(), 0, 0, 255, 255);
                 SDL_Rect rect = { map->GetTiles()[y][x].textureX * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().x, map->GetTiles()[y][x].textureY * map->GetTileSize() * map->GetCamera()->GetZoom() - map->GetCamera()->GetCamera().y, map->GetTileSize() * map->GetCamera()->GetZoom(), map->GetTileSize() * map->GetCamera()->GetZoom() };
                 SDL_RenderDrawRect(Window::GetRender(), &rect);
-            }
+            //}
         }
 }
 
@@ -75,6 +75,8 @@ void Draw::DrawCharacter()
 {
     character->GetPosition().x -= map->GetCamera()->GetCamera().x;
     character->GetPosition().y -= map->GetCamera()->GetCamera().y;
+    character->GetCollisionPoint().x -= map->GetCamera()->GetCamera().x;
+    character->GetCollisionPoint().y -= map->GetCamera()->GetCamera().y;
     SDL_RenderCopy(Window::GetRender(), character->GetSprite()->tex, &character->GetSrcRect(), &character->GetPosition());
 }
 
