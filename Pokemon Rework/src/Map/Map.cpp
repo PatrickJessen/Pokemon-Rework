@@ -27,6 +27,8 @@ Map::~Map()
         delete npcs[i];
     }
     npcs.clear();
+
+    delete collidedNpc;
 }
 
 void Map::InitMap()
@@ -53,9 +55,6 @@ void Map::SetNpcTile()
 {
     for (int i = 0; i < npcs.size(); i++)
     {
-        //temp = tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type;
-        //tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type = TileType::NPC;
-
         if (first)
         {
             temp = TileType::Exit;
@@ -68,9 +67,9 @@ void Map::SetNpcTile()
             if (npcs[i]->GetDirection() == AnimationDirection::RIGHT)
                 tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()) - 1].type = temp;
             if (npcs[i]->GetDirection() == AnimationDirection::UP)
-                tiles[(npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()) - 1][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom())].type = temp;
-            if (npcs[i]->GetDirection() == AnimationDirection::DOWN)
                 tiles[(npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()) + 1][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom())].type = temp;
+            if (npcs[i]->GetDirection() == AnimationDirection::DOWN)
+                tiles[(npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()) - 1][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom())].type = temp;
 
             tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][(npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom())].type = TileType::NPC;
             first = true;
@@ -80,12 +79,6 @@ void Map::SetNpcTile()
             tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type = TileType::NPC;
         }
     }
-   /* for (int j = 0; j < npcs[0]->GetMovePattern().size(); j++)
-    {
-        if (tiles[npcs[0]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[0]->GetCollisionPoint().x / tileSize / camera->GetZoom()].textureX != tiles[npcs[0]->GetMovePattern()[j].vector2.y][npcs[0]->GetMovePattern()[j].vector2.x].textureX)
-            if ((tiles[npcs[0]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[0]->GetCollisionPoint().x / tileSize / camera->GetZoom()].textureY != tiles[npcs[0]->GetMovePattern()[j].vector2.y][npcs[0]->GetMovePattern()[j].vector2.x].textureY))
-                tiles[npcs[0]->GetMovePattern()[j].vector2.y][npcs[0]->GetMovePattern()[j].vector2.x].type = TileType::Exit;
-    }*/
 }
 
 
@@ -106,35 +99,6 @@ int Map::EnterDoor(int camX, int camY)
         }
     }
     return -1;
-}
-
-void Map::Collision()
-{
-    //for (int i = 0; i < npcs.size(); i++)
-    //{
-    //    if (Collision::AABB(player->GetPosition(), npcs[i]->GetCollisionPoint()))
-    //    {
-    //        player->SetCanWalk(false);
-    //    }
-    //    else
-    //        player->SetCanWalk(true);
-    //    //if (first)
-    //    //{
-    //    //    temp = tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type;
-    //    //    first = false;
-    //    //}
-    //    //if (npcs[i]->GetIsWalking())
-    //    //{
-    //    //    //trainers[0]->SetXYPos(trainers[0]->GetXPos(), trainers[0]->GetYPos() + 40);
-    //    //    tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type = temp;
-    //    //    first = true;
-    //    //}
-    //    //else
-    //    //{
-    //    //    tiles[npcs[i]->GetCollisionPoint().y / tileSize / camera->GetZoom()][npcs[i]->GetCollisionPoint().x / tileSize / camera->GetZoom()].type = TileType::Collision;
-    //    //}
-
-    //}
 }
 
 void Map::LoadSpriteEntities()

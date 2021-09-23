@@ -42,7 +42,7 @@ void Trainer::Update(float elapsedTime)
 	default:
 		break;
 	}
-	//SDL_RenderDrawRect(Window::GetRender(), &viewRect);
+	SDL_RenderDrawRect(Window::GetRender(), &viewRect);
 }
 
 bool Trainer::IsWholeTeamDead()

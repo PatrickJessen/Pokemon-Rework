@@ -33,6 +33,8 @@ public:
 	Sprite* GetBattleTexture() { return battleSprite; }
 	Dialog GetBattleDialog() { return battleDialog; }
 	void AddBattleDialog(std::string message);
+	void SetIsSpottet(bool value) { isSpotted = value; }
+	bool GetIsSpottet() { return isSpotted; }
 
 public:
 	int GetMoney() { return money; }
@@ -41,11 +43,11 @@ public:
 public:
 	void SetMoney(int value) { money = value; }
 
+	SDL_Rect viewRect;
 private:
 	std::string battleTexturePath;
 	Sprite* battleSprite = nullptr;
 	int money = 100;
-	SDL_Rect viewRect;
 	bool isInBattle = false;
 	bool isDefeated = false;
 	int sizeOfPokebag = 0;
@@ -57,6 +59,7 @@ private:
 	int xOverflow = 0;
 	int yOverflow = 0;
 	int step = 0;
+	bool isSpotted = false;
 
 	Dialog battleDialog;
 };

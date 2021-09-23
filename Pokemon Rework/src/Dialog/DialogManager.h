@@ -13,11 +13,12 @@ public:
 public:
 	static DialogManager* GetInstance();
 	void ShowDialog(Dialog dialog);
+	bool GetIsActive() { return isActive; }
+	void SetIsActive(bool value) { isActive = value; }
+private:
 	void HandleUpdate();
 	void DrawBox();
 	void TypeDialog(std::string line);
-	void SetIsActive(bool value) { isActive = value; }
-	bool GetIsActive() { return isActive; }
 
 private:
 	bool isActive = false;

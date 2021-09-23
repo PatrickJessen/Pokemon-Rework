@@ -21,11 +21,11 @@ void Character::Animate(AnimationDirection dir, int tickTimes)
 	}
 	else if (dir == AnimationDirection::LEFT)
 	{
-		srcRect = { (int)spriteTick * 62, 65, 62, 65 };
+		srcRect = { (int)spriteTick * 62, 65, 62, 63 };
 	}
 	else if (dir == AnimationDirection::RIGHT)
 	{
-		srcRect = { (int)spriteTick * 62, 2 * 65, 62, 65 };
+		srcRect = { (int)spriteTick * 62, 2 * 65, 62, 63 };
 	}
 	//SDL_Delay(20);
 	animDir = dir;
@@ -35,8 +35,8 @@ void Character::UpdateCharacter(float elapsedTime)
 {
 	Update(elapsedTime);
 	position = { xPos, yPos, width, height };
-	//collisionPoint = { xPos + width / 4, yPos + height / 2 + 5, width / 2, 10 };
-	SDL_RenderDrawRect(Window::GetRender(), &collisionPoint);
+	collisionPoint = { xPos + width / 4, yPos + height / 2 + 5, width / 2, 10 };
+	//SDL_RenderDrawRect(Window::GetRender(), &collisionPoint);
 	switch (animDir)
 	{
 	case AnimationDirection::UP:
@@ -46,10 +46,10 @@ void Character::UpdateCharacter(float elapsedTime)
 		interactPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 30 };
 		break;
 	case AnimationDirection::LEFT:
-		interactPoint = { xPos, yPos + height / 2 + 5, 30, 10 };
+		interactPoint = { xPos, yPos + height / 2 + 4, 30, 10 };
 		break;
 	case AnimationDirection::RIGHT:
-		interactPoint = { xPos + width / 2, yPos + height / 2 + 5, 30, 10 };
+		interactPoint = { xPos + width, yPos + height / 2 + 4, 30, 10 };
 		break;
 	default:
 		break;
@@ -59,13 +59,25 @@ void Character::UpdateCharacter(float elapsedTime)
 void Character::Move(NpcPattern moveVec)
 {
 	if (moveVec.direction == AnimationDirection::RIGHT)
-		xPos += moveVec.vector2.x / 10;
+	{
+		SetCollisionPoint(GetXPos() + GetWidth() - 15, GetYPos() + GetHeight() / 2 + 10, GetWidth() / 2, 10);
+		xPos += speed; //moveVec.vector2.x / 10;
+	}
 	if (moveVec.direction == AnimationDirection::LEFT)
-		xPos -= moveVec.vector2.x / 5;
+	{
+		SetCollisionPoint(GetXPos() - GetWidth() / 16 + 10, GetYPos() + GetHeight() / 2 + 10, 10, 10);
+		xPos -= speed;// moveVec.vector2.x / 5;
+	}
 	if (moveVec.direction == AnimationDirection::UP)
-		yPos += moveVec.vector2.y - 10;
+	{
+		SetCollisionPoint(GetXPos() + GetWidth() / 2, GetYPos() + GetHeight() / 4 - 10, 10, 10);
+		yPos -= speed;// moveVec.vector2.y - 10;
+	}
 	if (moveVec.direction == AnimationDirection::DOWN)
-		yPos += moveVec.vector2.y / 10;
+	{
+		SetCollisionPoint(GetXPos() + GetWidth() / 2, GetYPos() + GetHeight() / 2 + 35, 10, 10);
+		yPos += speed;// moveVec.vector2.y / 10;
+	}
 	//if (xPos != xPos + moveVec.vector2.x)
 		//xPos += speed;
 	//else if (yPos != yPos + moveVec.vector2.y)
@@ -93,4 +105,14 @@ void Character::SetCollisionPoint(int x, int y, int w, int h)
 void Character::AddDialog(std::string message)
 {
 	dialog.Lines.push_back(message);
+}
+
+void Character::ClearDialog()
+{
+	dialog.Lines.clear();
+}
+
+void Character::ClearPath()
+{
+	movePattern.clear();
 }

@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Battle\BattleDialog.cpp" />
     <ClCompile Include="src\Battle\BattleHUD.cpp" />
     <ClCompile Include="src\Battle\BattlePokemon.cpp" />
     <ClCompile Include="src\Battle\BattleSystem.cpp" />
@@ -191,6 +192,7 @@
     <None Include="zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Battle\BattleDialog.h" />
     <ClInclude Include="src\Battle\BattleHUD.h" />
     <ClInclude Include="src\Battle\BattlePokemon.h" />
     <ClInclude Include="src\Battle\BattleSystem.h" />

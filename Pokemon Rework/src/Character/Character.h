@@ -41,11 +41,13 @@ public:
 	void AddToMovePattern(NpcPattern pattern);
 	bool GetIsWalking() { return isWalking; }
 	bool GetIsTrainer() { return isTrainer; }
+	bool GetCanWalk() { return canWalk; }
 
 public:
 	void SetSrcRect(int x, int y, int w, int h);
 	void SetXPos(int value) { xPos = value; }
 	void SetYPos(int value) { yPos = value; }
+	void SetSpeed(int value) { speed = value; }
 	void MoveXPos(int value) { xPos += value; }
 	void MoveYPos(int value) { yPos += value; }
 	void SetXYPosition(int x, int y) { xPos = x; yPos = y; }
@@ -53,6 +55,8 @@ public:
 	void SetCanWalk(bool value) { canWalk = value; }
 	void SetCollisionPoint(int x, int y, int w, int h);
 	void AddDialog(std::string message);
+	void ClearDialog();
+	void ClearPath();
 
 protected:
 	int xPos = 0;

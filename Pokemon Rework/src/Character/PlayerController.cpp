@@ -12,32 +12,29 @@ PlayerController::~PlayerController()
 
 void PlayerController::Update(float elapsedTime)
 {
-
-	if (Input::KeyState(Key::W))
+	if (timer == 0 && player->GetCanWalk())
 	{
-		player->SetWalkDirection(WalkDirection::UP);
-		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 2, player->GetYPos() + player->GetHeight() / 4 - 10, 10, 10);
-	}
-	else if (Input::KeyState(Key::S))
-	{
-		player->SetWalkDirection(WalkDirection::DOWN);
-		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 2, player->GetYPos() + player->GetHeight() / 2 + 35, 10, 10 );
-	}
-	else if (Input::KeyState(Key::A))
-	{
-		player->SetWalkDirection(WalkDirection::LEFT);
-		player->SetCollisionPoint(player->GetXPos() - player->GetWidth() / 16 + 10, player->GetYPos() + player->GetHeight() / 2 + 10, 10, 10);
-	}
-	else if (Input::KeyState(Key::D))
-	{
-		player->SetWalkDirection(WalkDirection::RIGHT);
-		player->SetCollisionPoint(player->GetXPos() + player->GetWidth(), player->GetYPos() + player->GetHeight() / 2 + 10, player->GetWidth() / 2, 10 );
-	}
-	else
-	{
-		player->SetIsWalking(false);
-		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 4, player->GetYPos() + player->GetHeight() / 2 + 5, player->GetWidth() / 2, 10);
-		//player->Animate((AnimationDirection)lastDirection, 1);
+		if (Input::KeyState(Key::W))
+		{
+			player->SetWalkDirection(WalkDirection::UP);
+		}
+		else if (Input::KeyState(Key::S))
+		{
+			player->SetWalkDirection(WalkDirection::DOWN);
+		}
+		else if (Input::KeyState(Key::A))
+		{
+			player->SetWalkDirection(WalkDirection::LEFT);
+		}
+		else if (Input::KeyState(Key::D))
+		{
+			player->SetWalkDirection(WalkDirection::RIGHT);
+		}
+		else
+		{
+			player->SetIsWalking(false);
+			//player->Animate((AnimationDirection)lastDirection, 1);
+		}
 	}
 	Walk();
 	Interact();
@@ -48,8 +45,10 @@ void PlayerController::Walk()
 	if (player->GetWalkDirect() == WalkDirection::UP)
 	{
 		timer += player->GetSpeed();
+		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 2, player->GetYPos() + player->GetHeight() / 4 - 10, 10, 10);
 		if (timer <= map->GetTileSize() * map->GetCamera()->GetZoom() && !TileCollision() && !NPCCollision())
 		{
+			//if (!Collision::XYInRect(player->GetCollisionPoint(), map->GetTiles()[(player->GetCollisionPoint().y) / map->GetTileSize() / map->GetCamera()->GetZoom()][(player->GetCollisionPoint().x) / map->GetTileSize() / map->GetCamera()->GetZoom()].textureX, map->GetTiles()[(player->GetCollisionPoint().y) / map->GetTileSize() / map->GetCamera()->GetZoom()][(player->GetCollisionPoint().x) / map->GetTileSize() / map->GetCamera()->GetZoom()].textureY))
 			player->MoveYPos(-player->GetSpeed());
 			player->Animate((AnimationDirection)WalkDirection::UP, 4);
 		}
@@ -63,6 +62,7 @@ void PlayerController::Walk()
 	else if (player->GetWalkDirect() == WalkDirection::DOWN)
 	{
 		timer += player->GetSpeed();
+		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 2, player->GetYPos() + player->GetHeight() / 2 + 35, 10, 10);
 		if (timer <= map->GetTileSize() * map->GetCamera()->GetZoom() && !TileCollision() && !NPCCollision())
 		{
 			player->MoveYPos(player->GetSpeed());
@@ -78,6 +78,7 @@ void PlayerController::Walk()
 	else if (player->GetWalkDirect() == WalkDirection::LEFT)
 	{
 		timer += player->GetSpeed();
+		player->SetCollisionPoint(player->GetXPos() - player->GetWidth() / 16 + 10, player->GetYPos() + player->GetHeight() / 2 + 10, 10, 10);
 		if (timer <= map->GetTileSize() * map->GetCamera()->GetZoom() && !TileCollision() && !NPCCollision())
 		{
 			player->MoveXPos(-player->GetSpeed());
@@ -93,6 +94,7 @@ void PlayerController::Walk()
 	else if (player->GetWalkDirect() == WalkDirection::RIGHT)
 	{
 		timer += player->GetSpeed();
+		player->SetCollisionPoint(player->GetXPos() + player->GetWidth(), player->GetYPos() + player->GetHeight() / 2 + 10, player->GetWidth() / 2, 10);
 		if (timer <= map->GetTileSize() * map->GetCamera()->GetZoom() && !TileCollision() && !NPCCollision())
 		{
 			player->MoveXPos(player->GetSpeed());
@@ -106,13 +108,17 @@ void PlayerController::Walk()
 		}
 	}
 	else
+	{
 		player->Animate((AnimationDirection)lastDirection, 1);
+		player->SetCollisionPoint(player->GetXPos() + player->GetWidth() / 4, player->GetYPos() + player->GetHeight() / 2 + 5, player->GetWidth() / 2, 10);
+	}
 }
 
 bool PlayerController::TileCollision()
 {
 	/*if (map->GetTiles()[player->GetCollisionPoint().y / map->GetTileSize() / map->GetCamera()->GetZoom()][player->GetCollisionPoint().x / map->GetTileSize() / map->GetCamera()->GetZoom()].type == TileType::Collision)
 		return true;*/
+	//std::cout << player->GetCollisionPoint().x / map->GetTileSize() / map->GetCamera()->GetZoom() << ", " << player->GetCollisionPoint().y / map->GetTileSize() / map->GetCamera()->GetZoom() << "\n";
 	if (map->GetTiles()[(player->GetCollisionPoint().y) / map->GetTileSize() / map->GetCamera()->GetZoom()][(player->GetCollisionPoint().x) / map->GetTileSize() / map->GetCamera()->GetZoom()].type == TileType::Collision)
 		return true;
 	return false;

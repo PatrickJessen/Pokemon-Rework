@@ -33,6 +33,7 @@ void BattleTrainer::SetupBattle()
 
 void BattleTrainer::Update()
 {
+	dialog.ShowDialog(message);
 	/*if (state == BattleState::EnemyMove)
 		t = new std::thread(([this] {this->HandleEnemyAction(); }));*/
 	SetupBattle();
@@ -58,13 +59,13 @@ void BattleTrainer::Update()
 	switch (state)
 	{
 	case BattleState::Start:
-		message = "You think you can defeat me?";
+		message = "";
 		bHud.DrawTrainerEntrance(player);
 		bHud.DrawEnemyTrainerEntrance(enemy);
 		if (Input::KeyPressed(Key::SPACE))
 		{
 			state = BattleState::PlayerAction;
-			message = "";
+			message = "Go " + player->GetInBattlePokemon()->GetName() + "!";
 		}
 		break;
 	case BattleState::PlayerAction:
@@ -153,6 +154,9 @@ void BattleTrainer::EndBattle()
 	{
 		message = winningQuotes[RandNum(0, winningQuotes.size() - 1)];
 		end = true;
+		enemy->SetIsDefeated(true);
+		enemy->ClearDialog();
+		enemy->AddDialog("I will train harder for our next battle!");
 	}
 	else if (!iWon && !end)
 	{
@@ -163,6 +167,7 @@ void BattleTrainer::EndBattle()
 	if (Input::KeyPressed(Key::SPACE))
 	{
 		player->SetIsInBattle(false);
+		player->SetIsSpottet(false);
 	}
 }
 

@@ -30,7 +30,7 @@ Map* Route1::LoadNewMap()
 	case 0:
 	{
 		pTown = new PalletTown(player, 31, 31, 32, 1, 2);
-		player->SetXYPosition(14 * tileSize * camera->GetZoom(), 1 * tileSize * camera->GetZoom());
+		player->SetXYPosition(14 * tileSize * camera->GetZoom() - 5, 1 * tileSize * camera->GetZoom() - 8);
 		return pTown;
 	}
 	break;

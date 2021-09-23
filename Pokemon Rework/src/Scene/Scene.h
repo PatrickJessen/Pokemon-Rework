@@ -15,6 +15,7 @@ public:
 
 	Character* GetPlayer() { return player; }
 	Map* GetMap() { return current; }
+	Draw* GetDraw() { return draw; }
 
 private:
 	Map* current = nullptr;

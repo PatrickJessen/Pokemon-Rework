@@ -5,7 +5,7 @@
 #include "Character/NpcController.h"
 #include "Battle/BattleSystem.h"
 
-enum class GameState { Free, Battle, Dialog };
+enum class GameState { Free, Battle, Encounter, Dialog };
 
 class GameController
 {
@@ -20,6 +20,7 @@ private:
 	void ConstantUpdate(float elapsedTime);
 	void WalkInDoor();
 	void CheckForInteraction();
+	void StartBattle();
 
 private:
 	Scene* scene = nullptr;
@@ -28,6 +29,9 @@ private:
 	GameState state = GameState::Free;
 	Map* nextMap = nullptr;
 	DialogManager* dialogManager = nullptr;
-	BattleSystem* battle;
+	BattleSystem* battle = nullptr;
+	bool encounterStarted = false;
+	bool encountered = false;
+	std::thread t1;
 };
 

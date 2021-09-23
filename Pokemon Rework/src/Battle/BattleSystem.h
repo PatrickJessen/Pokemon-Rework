@@ -2,6 +2,7 @@
 #include "../Character/Trainer.h"
 #include "BattleHUD.h"
 #include <thread>
+#include "BattleDialog.h"
 
 enum class BattleState
 {
@@ -48,5 +49,6 @@ protected:
 	int timer = 0;
 	bool iWon = false;
 	bool end = false;
+	BattleDialog dialog;
 	std::thread t1;
 };

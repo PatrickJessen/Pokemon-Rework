@@ -11,6 +11,8 @@ public:
 public:
 	void Update(Map* map, Character* character);
 
+	void DrawExclamationmark(Character* character);
+
 private:
 	void DrawMapImage();
 	void DrawMapBackground();

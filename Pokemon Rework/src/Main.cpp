@@ -20,12 +20,10 @@ int main()
 		{
 			SDL_Delay(frameDelay - frameTime);
 		}*/
-
 		gController->Update(0);
 		window->Update();
 		window->HandleEvents();
 		SDL_Delay(1);
 	}
-
 	window->Clean();
 }
