@@ -7,7 +7,7 @@ GameController::GameController()
 {
 	scene = new Scene();
 	scene->LoadNewScene(new PalletTown(scene->GetPlayer(), 31, 31, 32, 1, 2));
-	scene->GetPlayer()->SetXYPosition(5 * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom() - 5, 5 * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom() - 8);
+	scene->GetPlayer()->SetXYPosition(5 * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom() - 5, 11 * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom() - 8);
 	//scene->GetPlayer()->SetXYPosition(0, 0);
 	dialogManager = new DialogManager();
 	controller = new PlayerController(scene->GetPlayer(), scene->GetMap());
@@ -30,8 +30,11 @@ void GameController::Update(float elapsedTime)
 		WalkInDoor();
 		scene->GetPlayer()->SetCanWalk(true);
 		break;
-	case GameState::Battle:
+	case GameState::TrainerBattle:
 		npcController.GetBattleSystem()->Update();
+		break;
+	case GameState::PokemonBattle:
+		controller->GetBattle()->Update();
 		break;
 	case GameState::Encounter:
 		break;
@@ -78,11 +81,14 @@ void GameController::ConstantUpdate(float elapsedTime)
 	else
 		state = GameState::Free;
 
-	if (dynamic_cast<Trainer*>(scene->GetPlayer())->GetIsInBattle())
-		state = GameState::Battle;
+	if (dynamic_cast<Trainer*>(scene->GetPlayer())->GetIsInTrainerBattle())
+		state = GameState::TrainerBattle;
+
+	if (dynamic_cast<Trainer*>(scene->GetPlayer())->GetIsInPokemonBattle())
+		state = GameState::PokemonBattle;
 
 
-	if (dynamic_cast<Trainer*>(scene->GetPlayer())->GetIsSpottet() && state != GameState::Dialog && state != GameState::Battle)
+	if (dynamic_cast<Trainer*>(scene->GetPlayer())->GetIsSpottet() && state != GameState::Dialog && state != GameState::TrainerBattle)
 	{
 		scene->GetDraw()->DrawExclamationmark(scene->GetMap()->GetCollidedNpc());
 		npcController.StartEncounter(scene->GetMap()->GetCollidedNpc(), scene->GetPlayer(), dialogManager);

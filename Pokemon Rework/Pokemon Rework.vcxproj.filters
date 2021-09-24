@@ -117,6 +117,12 @@
     <ClCompile Include="src\Battle\BattleDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Pokes\Gen1\Mew.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pokes\Gen1\Charizard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libfreetype-6.dll" />
@@ -205,9 +211,6 @@
     <ClInclude Include="src\Map\Region\Kanto\Routes\Route1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Map\ISpawnPokemon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Core\Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -269,6 +272,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Battle\BattleDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interfaces\ISpawnPokemon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pokes\Gen1\Mew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Map\Checkpoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pokes\Gen1\Charizard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

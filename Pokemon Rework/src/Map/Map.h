@@ -50,7 +50,6 @@ public:
 	std::vector<Character*> GetNpcs() { return npcs; }
 	Character* GetCollidedNpc() { return collidedNpc; }
 	void SetCollidedNpc(Character* npc) { collidedNpc = npc; }
-
 	int EnterDoor(int camX, int camY);
 
 private:
@@ -70,6 +69,8 @@ protected:
 	std::map<int, std::vector<Vector2>> doors;
 	std::vector<Character*> npcs;
 	Character* player;
+	Vector2* checkpoint = nullptr;
+	Map* lastCheckpoint = nullptr;
 
 private:
 	bool first = true;

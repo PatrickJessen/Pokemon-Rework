@@ -51,7 +51,7 @@ void NpcController::Update(Character* character, Character* player)
 bool NpcController::TrainerInSight(Character* character, Character* player)
 {
 	if (character->GetIsTrainer())
-		if (Collision::XYInRect(dynamic_cast<Trainer*>(character)->GetViewRect(), player->GetCollisionPoint().x, player->GetCollisionPoint().y) && !dynamic_cast<Trainer*>(player)->GetIsInBattle())
+		if (Collision::XYInRect(dynamic_cast<Trainer*>(character)->GetViewRect(), player->GetCollisionPoint().x, player->GetCollisionPoint().y) && !dynamic_cast<Trainer*>(player)->GetIsInTrainerBattle())
 		{
 			if (!dynamic_cast<Trainer*>(character)->GetIsDefeated())
 			{
@@ -83,6 +83,6 @@ void NpcController::StartEncounter(Character* character, Character* player, Dial
 	{
 		if (!dialog->GetIsActive());
 			battle = new BattleTrainer(player, character);
-		static_cast<Trainer*>(player)->SetIsInBattle(true);
+		static_cast<Trainer*>(player)->SetIsInTrainerBattle(true);
 	}
 }

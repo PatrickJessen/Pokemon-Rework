@@ -6,7 +6,7 @@
 #include "../Core/Vector2.h"
 #include "NpcPattern.h"
 
-enum class WalkDirection { UP, DOWN, LEFT, RIGHT, NONE };
+enum class WalkDirection { DOWN, UP, LEFT, RIGHT, NONE };
 
 class Character
 {
@@ -72,7 +72,7 @@ protected:
 	SDL_Rect collisionPoint;
 	std::string texturePath;
 	Sprite* sprite = nullptr;
-	AnimationDirection animDir;
+	AnimationDirection animDir = AnimationDirection::DOWN;
 	WalkDirection walkDir = WalkDirection::NONE;
 	std::vector<NpcPattern> movePattern;
 	Dialog dialog;

@@ -55,6 +55,7 @@ public:
 	std::vector<Move*> GetMoves();
 	Move* GetMoveAt(int x) { return moveset[x]; }
 	void AddLevel();
+	void SetLevel(int value) { stats.Level = value; }
 
 	std::string name;
 

@@ -23,7 +23,7 @@ PalletTown::PalletTown(Character* player, int width, int height, int tileSize, i
 	npcs[1]->SetXYPosition(10 * tileSize * camera->GetZoom() - 5, 10 * tileSize * camera->GetZoom() - 9);
 	npcs[1]->AddDialog("You think you can defeat me?");
 	static_cast<Trainer*>(npcs[1])->AddPokemonToBag(new Bulbasaur(5));
-	static_cast<Trainer*>(player)->AddPokemonToBag(new Charmander(5));
+	static_cast<Trainer*>(player)->AddPokemonToBag(new Charizard(100));
 	static_cast<Trainer*>(player)->GetPokemonAtIndex(0)->OnPokemonCreate();
 	static_cast<Trainer*>(npcs[1])->GetPokemonAtIndex(0)->OnPokemonCreate();
 	std::cout << static_cast<Trainer*>(player)->GetPokemonAtIndex(0)->name << "\n";
@@ -36,6 +36,8 @@ PalletTown::PalletTown(Character* player, int width, int height, int tileSize, i
 	npcs[0]->AddToMovePattern(NpcPattern(Vector2(npcs[0]->GetXPos() / tileSize / zoom + 4, 0), AnimationDirection::RIGHT));
 	//npcs[0]->AddToMovePattern(NpcPattern(Vector2(0, npcs[0]->GetXPos() / tileSize / zoom + 4), AnimationDirection::DOWN));
 	npcs[0]->AddToMovePattern(NpcPattern(Vector2(npcs[0]->GetXPos() / tileSize / zoom + -4, 0), AnimationDirection::LEFT));
+
+	checkpoint = new Vector2(6 * tileSize * zoom - 5, 12 * tileSize * zoom - 8);
 }
 
 PalletTown::~PalletTown()

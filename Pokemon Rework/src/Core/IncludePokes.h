@@ -4,3 +4,5 @@
 #include "../Pokes/Gen1/Squirtle.h"
 #include "../Pokes/Gen1/Pidgey.h"
 #include "../Pokes/Gen1/Rattata.h"
+#include "../Pokes/Gen1/Mew.h"
+#include "../Pokes/Gen1/Charizard.h"

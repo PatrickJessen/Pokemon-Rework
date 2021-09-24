@@ -30,9 +30,10 @@ void BattlePokemon::SetupBattle()
 
 void BattlePokemon::Update()
 {
+	dialog.ShowDialog(message);
 	SetupBattle();
-
-	UpdateUI();
+	if (player->GetInBattlePokemon() != nullptr)
+		UpdateUI();
 
 	switch (state)
 	{
@@ -88,6 +89,8 @@ void BattlePokemon::PerformPlayerAttack()
 {
 	if (Input::KeyPressed(Key::RETURN))
 	{
+		if (hit == true)
+			t1.join();
 		if (IGoFirst())
 		{
 			poke->TakeDamage(player->GetInBattlePokemon(), currentMove);
@@ -97,11 +100,13 @@ void BattlePokemon::PerformPlayerAttack()
 				state = BattleState::End;
 			else
 			{
+				state = BattleState::EnemyMove;
 				t1 = std::thread(&BattlePokemon::PerformEnemyAttack, this);
 			}
 		}
 		else
 		{
+			state = BattleState::EnemyMove;
 			t1 = std::thread(&BattlePokemon::PerformEnemyAttack, this);
 		}
 	}
@@ -109,6 +114,7 @@ void BattlePokemon::PerformPlayerAttack()
 
 void BattlePokemon::PerformEnemyAttack()
 {
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 	player->GetInBattlePokemon()->TakeDamage(poke, PrioritiesEnemyMove(poke));
 	message = poke->GetName() + " Used " + poke->GetMoveAt(PrioritiesEnemyMove(poke))->GetMoveName();
 	if (player->GetInBattlePokemon()->GetHP() < 0)
@@ -119,6 +125,8 @@ void BattlePokemon::PerformEnemyAttack()
 	}
 	else
 		state = BattleState::PlayerAction;
+
+	hit = true;
 }
 
 bool BattlePokemon::IGoFirst()
@@ -133,17 +141,19 @@ void BattlePokemon::EndBattle()
 	if (iWon && !end)
 	{
 		message = poke->GetName() + " Fainted";
+		player->SetIsInPokemonBattle(false);
 		end = true;
 	}
 	else if (!iWon && !end)
 	{
 		message = "You got no more pokemons left";
+		player->SetIsInPokemonBattle(false);
 		end = true;
 	}
 
 	if (Input::KeyPressed(Key::SPACE))
 	{
-		player->SetIsInBattle(false);
+		player->SetIsInPokemonBattle(false);
 	}
 }
 
@@ -177,6 +187,6 @@ void BattlePokemon::UpdateHealth()
 
 void BattlePokemon::Run()
 {
-	player->SetIsInBattle(false);
+	player->SetIsInPokemonBattle(false);
 	end = true;
 }

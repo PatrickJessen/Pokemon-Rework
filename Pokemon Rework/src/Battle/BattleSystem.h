@@ -6,7 +6,7 @@
 
 enum class BattleState
 {
-	Start, PlayerAction, PlayerMove, Death, SwitchPoke, Busy, Run, End, Stop
+	Start, PlayerAction, PlayerMove, EnemyMove, Death, SwitchPoke, Busy, Run, End, Stop
 };
 
 class BattleSystem
@@ -51,4 +51,5 @@ protected:
 	bool end = false;
 	BattleDialog dialog;
 	std::thread t1;
+	bool hit = false;
 };

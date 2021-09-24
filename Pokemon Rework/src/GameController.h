@@ -5,7 +5,7 @@
 #include "Character/NpcController.h"
 #include "Battle/BattleSystem.h"
 
-enum class GameState { Free, Battle, Encounter, Dialog };
+enum class GameState { Free, TrainerBattle, PokemonBattle, Encounter, Dialog };
 
 class GameController
 {

@@ -2,7 +2,7 @@
 #include "../Core/Vector2.h"
 enum class AnimationDirection
 {
-	UP, DOWN, LEFT, RIGHT, NONE
+	DOWN, UP, LEFT, RIGHT, NONE
 };
 
 class NpcPattern

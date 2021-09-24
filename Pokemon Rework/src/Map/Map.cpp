@@ -28,7 +28,7 @@ Map::~Map()
     }
     npcs.clear();
 
-    delete collidedNpc;
+    //delete collidedNpc;
 }
 
 void Map::InitMap()
@@ -53,6 +53,7 @@ void Map::InitMap()
 
 void Map::SetNpcTile()
 {
+    std::cout << player->GetCollisionPoint().x / tileSize / camera->GetZoom() << " , " << player->GetCollisionPoint().y / tileSize / camera->GetZoom() << "\n";
     for (int i = 0; i < npcs.size(); i++)
     {
         if (first)
@@ -80,7 +81,6 @@ void Map::SetNpcTile()
         }
     }
 }
-
 
 int Map::EnterDoor(int camX, int camY)
 {

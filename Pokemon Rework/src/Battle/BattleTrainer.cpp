@@ -115,10 +115,16 @@ void BattleTrainer::PerformPlayerAttack()
 			if (enemy->GetInBattlePokemon()->GetHP() < 0)
 				enemy->SetInBattlePokemon(GetEnemyNextHealthyPokemon());
 			else
+			{
+				state = BattleState::EnemyMove;
 				t1 = std::thread(&BattleTrainer::PerformEnemyAttack, this);
+			}
 		}
 		else
+		{
+			state = BattleState::EnemyMove;
 			t1 = std::thread(&BattleTrainer::PerformEnemyAttack, this);
+		}
 
 
 	}
@@ -166,7 +172,7 @@ void BattleTrainer::EndBattle()
 
 	if (Input::KeyPressed(Key::SPACE))
 	{
-		player->SetIsInBattle(false);
+		player->SetIsInTrainerBattle(false);
 		player->SetIsSpottet(false);
 	}
 }

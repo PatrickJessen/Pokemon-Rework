@@ -15,14 +15,16 @@ public:
 public:
 	bool IsWholeTeamDead();
 	void SetViewRect(int x, int y) { viewRect.x - x; viewRect.y - y; }
-	void SetIsInBattle(bool value) { isInBattle = value; }
+	void SetIsInTrainerBattle(bool value) { isInTrainerBattle = value; }
+	void SetIsInPokemonBattle(bool value) { isInPokemonBattle = value; }
 	void SetIsDefeated(bool value) { isDefeated = value; }
 	void SetInBattlePokemon(Pokemon* value) { inBattlePokemon = value; }
 	void AddPokemonToBag(Pokemon* pokemon);
 	void AddPokemonToPc(Pokemon* pokemon);
 	void SetStarterPoke(Pokemon* pokemon) { starterPoke = pokemon; }
 	bool GetIsDefeated() { return isDefeated; }
-	bool GetIsInBattle() { return isInBattle; }
+	bool GetIsInTrainerBattle() { return isInTrainerBattle; }
+	bool GetIsInPokemonBattle() { return isInPokemonBattle; }
 	SDL_Rect& GetViewRect() { return viewRect; }
 	int GetSizeOfPokebag() { return sizeOfPokebag; }
 	Pokemon* GetInBattlePokemon() { return inBattlePokemon; }
@@ -48,7 +50,8 @@ private:
 	std::string battleTexturePath;
 	Sprite* battleSprite = nullptr;
 	int money = 100;
-	bool isInBattle = false;
+	bool isInTrainerBattle = false;
+	bool isInPokemonBattle = false;
 	bool isDefeated = false;
 	int sizeOfPokebag = 0;
 	Pokemon* inBattlePokemon = nullptr;

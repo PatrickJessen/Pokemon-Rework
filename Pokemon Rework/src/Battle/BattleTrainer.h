@@ -26,6 +26,4 @@ private:
 
 	std::vector<std::string> winningQuotes;
 	std::vector<std::string> losingQuotes;
-
-	bool hit = false;
 };
