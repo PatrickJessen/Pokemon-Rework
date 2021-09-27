@@ -175,15 +175,22 @@ void BattleHUD::ClearMoveText(int index)
 		moveText[i].text = "";
 }
 
+Uint8 transparency = 255;
 bool BattleHUD::AnimatePlayerDeath(Pokemon* pokemon)
 {
-	bool isFinnished = pokeRect.y == 708;
-	if (pokeRect.y != 708)
-	{
-		pokeRect.y += 5;
-		pokeRect.h -= 5;
-	}
-	return isFinnished;
+	if (transparency > 0)
+		transparency -= 15;
+	else
+		return true;
+
+	SDL_SetTextureAlphaMod(pokemon->GetBackTexture()->tex, transparency);
+	//bool isFinnished = pokeRect.y == 708;
+	//if (pokeRect.y != 708)
+	//{
+	//	pokeRect.y += 5;
+	//	pokeRect.h -= 5;
+	//}
+	return false;
 }
 
 bool BattleHUD::AnimateNextPlayerPokemon(Pokemon* pokemon)

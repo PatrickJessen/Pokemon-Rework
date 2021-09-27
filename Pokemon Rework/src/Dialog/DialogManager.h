@@ -9,6 +9,7 @@ class DialogManager
 {
 public:
 	DialogManager();
+	~DialogManager();
 
 public:
 	static DialogManager* GetInstance();
@@ -18,6 +19,7 @@ public:
 private:
 	void HandleUpdate();
 	void DrawBox();
+	void DrawText();
 	void TypeDialog(std::string line);
 
 private:
@@ -30,4 +32,5 @@ private:
 
 private:
 	SDL_Rect fontSize;
+	std::thread t1;
 };

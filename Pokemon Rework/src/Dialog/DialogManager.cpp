@@ -24,8 +24,9 @@ void DialogManager::ShowDialog(Dialog dialog)
 	{
 		this->dialog = dialog;
 		HandleUpdate();
-		TypeDialog(dialog.Lines[currentLine]);
 		DrawBox();
+		TypeDialog(dialog.Lines[currentLine]);
+		DrawText();
 	}
 }
 
@@ -50,6 +51,10 @@ void DialogManager::DrawBox()
 {
 	SDL_Rect rect = { Window::GetWidth() / 2 - 250, Window::GetHeight() - 150, 600, 150 };
 	SDL_RenderCopy(Window::GetRender(), mBox->tex, NULL, &rect);
+}
+
+void DialogManager::DrawText()
+{
 	SDL_Surface* surface = TTF_RenderText_Blended(font, text.text.c_str(), text.color);
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(Window::GetRender(), surface);
 	SDL_SetTextureScaleMode(texture, SDL_ScaleMode::SDL_ScaleModeBest);
