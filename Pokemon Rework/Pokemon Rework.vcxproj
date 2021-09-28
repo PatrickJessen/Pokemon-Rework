@@ -224,6 +224,7 @@
     <ClInclude Include="src\Core\Sprite.h" />
     <ClInclude Include="src\Interfaces\ISpawnPokemon.h" />
     <ClInclude Include="src\Map\Checkpoint.h" />
+    <ClInclude Include="src\Map\ICheckpoint.h" />
     <ClInclude Include="src\Map\Map.h" />
     <ClInclude Include="src\Map\Region\Kanto\Pallet Town\PalletTown.h" />
     <ClInclude Include="src\Map\Region\Kanto\Routes\Route1.h" />

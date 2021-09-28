@@ -7,6 +7,7 @@ Route1::Route1(Character* player, int width, int height, int tileSize, int zoneL
 	this->tileSize = tileSize;
 	this->zoneLevel = zoneLevel;
 	this->player = player;
+	containsCheckpoint = false;
 	camera = new Camera(zoom);
 	camera->SetOptions(tileSize, height, 730);
 	
@@ -57,4 +58,9 @@ Pokemon* Route1::SpawnPokemon()
 	spawnedPoke->SetLevel(100);
 	spawnedPoke->OnPokemonCreate();
 	return spawnedPoke;
+}
+
+Map* Route1::SpawnAtCheckpoint()
+{
+	return lastCheckpoint;
 }

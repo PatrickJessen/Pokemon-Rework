@@ -39,6 +39,7 @@ public:
 	bool TakeDamage(Pokemon* attacker, int x);
 
 public:
+	void RefreshHP() { hp = stats.MaxHP; }
 	int GetLevel();
 	int GetHP();
 	std::string GetName();

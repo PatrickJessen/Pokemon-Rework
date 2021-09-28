@@ -21,6 +21,7 @@ private:
 	void WalkInDoor();
 	void CheckForInteraction();
 	void StartBattle();
+	void ReturnToLastCheckpoint();
 
 private:
 	Scene* scene = nullptr;

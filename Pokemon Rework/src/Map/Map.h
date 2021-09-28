@@ -10,6 +10,7 @@
 #include "../Character/Npc.h"
 #include "../Character/Trainer.h"
 #include "../Core/IncludePokes.h"
+#include "ICheckpoint.h"
 
 //tile types to know what we walk on
 enum class TileType
@@ -51,6 +52,11 @@ public:
 	Character* GetCollidedNpc() { return collidedNpc; }
 	void SetCollidedNpc(Character* npc) { collidedNpc = npc; }
 	int EnterDoor(int camX, int camY);
+	Vector2* checkpoint = nullptr;
+	bool ContainsCheckpoint() { return containsCheckpoint; }
+
+	int x = 10;
+	Map* lastCheckpoint = nullptr;
 
 private:
 	void LoadSpriteEntities();
@@ -69,8 +75,7 @@ protected:
 	std::map<int, std::vector<Vector2>> doors;
 	std::vector<Character*> npcs;
 	Character* player;
-	Vector2* checkpoint = nullptr;
-	Map* lastCheckpoint = nullptr;
+	bool containsCheckpoint = false;
 
 private:
 	bool first = true;

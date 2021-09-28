@@ -7,6 +7,7 @@ PalletTown::PalletTown(Character* player, int width, int height, int tileSize, i
 	this->tileSize = tileSize;
 	this->zoneLevel = zoneLevel;
 	this->player = player;
+	containsCheckpoint = true;
 	camera = new Camera(zoom);
 	camera->SetOptions(tileSize, height, 50);
 
@@ -38,6 +39,8 @@ PalletTown::PalletTown(Character* player, int width, int height, int tileSize, i
 	npcs[0]->AddToMovePattern(NpcPattern(Vector2(npcs[0]->GetXPos() / tileSize / zoom + -4, 0), AnimationDirection::LEFT));
 
 	checkpoint = new Vector2(6 * tileSize * zoom - 5, 12 * tileSize * zoom - 8);
+	lastCheckpoint = this;
+	lastCheckpoint->checkpoint = new Vector2(6 * tileSize * zoom - 5, 12 * tileSize * zoom - 8);
 }
 
 PalletTown::~PalletTown()
@@ -69,4 +72,9 @@ Map* PalletTown::LoadNewMap()
 	break;
 	}
 	return nullptr;
+}
+
+Map* PalletTown::SpawnAtCheckpoint()
+{
+	return lastCheckpoint;
 }

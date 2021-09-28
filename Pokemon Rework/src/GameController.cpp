@@ -52,6 +52,7 @@ void GameController::ConstantUpdate(float elapsedTime)
 	scene->GetPlayer()->UpdateCharacter(elapsedTime);
 	scene->GetMap()->GetCamera()->Update();
 	scene->GetMap()->SetNpcTile();
+	ReturnToLastCheckpoint();
 	for (int i = 0; i < scene->GetMap()->GetNpcs().size(); i++)
 	{
 		scene->GetMap()->GetNpcs()[i]->UpdateCharacter(elapsedTime);
@@ -90,7 +91,7 @@ void GameController::ConstantUpdate(float elapsedTime)
 
 	if (dynamic_cast<Trainer*>(scene->GetPlayer())->GetIsSpottet() && state != GameState::Dialog && state != GameState::TrainerBattle)
 	{
-		scene->GetDraw()->DrawExclamationmark(scene->GetMap()->GetCollidedNpc());
+		scene->GetDraw().DrawExclamationmark(scene->GetMap()->GetCollidedNpc());
 		npcController.StartEncounter(scene->GetMap()->GetCollidedNpc(), scene->GetPlayer(), dialogManager);
 	}
 	//else
@@ -123,5 +124,22 @@ void GameController::StartBattle()
 
 		}
 
+	}
+}
+
+void GameController::ReturnToLastCheckpoint()
+{
+	if (static_cast<Trainer*>(scene->GetPlayer())->IsWholeTeamDead() && state == GameState::Free)
+	{
+		for (int i = 0; i < dynamic_cast<Trainer*>(scene->GetPlayer())->GetSizeOfPokebag(); i++)
+		{
+			dynamic_cast<Trainer*>(scene->GetPlayer())->GetPokemonAtIndex(i)->RefreshHP();
+		}
+		scene->LoadNewScene(scene->GetCheckpoint().GetCurrentCheckpoint());
+		//scene->GetCheckpoint().InitCheckpoints(scene->GetPlayer());
+		delete controller;
+		controller = new PlayerController(scene->GetPlayer(), scene->GetMap());
+		//dynamic_cast<Trainer*>(scene->GetPlayer())->SetXYPosition(scene->GetCheckpoint().GetPosition()->x, scene->GetCheckpoint().GetPosition()->y);
+		scene->GetPlayer()->SetXYPosition(scene->GetCheckpoint().GetPosition()->x * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom(), scene->GetCheckpoint().GetPosition()->y * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom());
 	}
 }

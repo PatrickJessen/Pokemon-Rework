@@ -286,5 +286,8 @@
     <ClInclude Include="src\Pokes\Gen1\Charizard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Map\ICheckpoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

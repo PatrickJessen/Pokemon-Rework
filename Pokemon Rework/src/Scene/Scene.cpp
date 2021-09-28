@@ -2,8 +2,8 @@
 
 Scene::Scene()
 {
-	draw = new Draw();
 	player = new Trainer("Ash", "Assets/Characters/Ash.png", "Assets/Characters/AshBack.png", 75, 75, 62, 65, 100);
+	checkpoint.InitCheckpoints(player);
 }
 
 Scene::~Scene()
@@ -13,7 +13,9 @@ Scene::~Scene()
 
 void Scene::Update()
 {
-	draw->Update(current, player);
+	draw.Update(current, player);
+	checkpoint.SetCurrentCheckpoint(GetMap()->GetCamera());
+	//std::cout << (Map*)lastCheckpoint->x << "\n";
 }
 
 void Scene::LoadNewScene(Map* map)
@@ -22,4 +24,13 @@ void Scene::LoadNewScene(Map* map)
 	current = map;
 	current->InitMap();
 	current->GetCamera()->SetTarget(&player->GetPosition());
+}
+
+void Scene::SetNewCheckpoint()
+{
+}
+
+Map* Scene::GetLastCheckpoint()
+{
+	return lastCheckpoint;
 }

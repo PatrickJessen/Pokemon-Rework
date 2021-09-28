@@ -28,20 +28,23 @@ void Trainer::Update(float elapsedTime)
 	switch (animDir)
 	{
 	case AnimationDirection::DOWN:
-		viewRect = { xPos, yPos, 2, height * 5 };
+		viewRect = { xPos + width / 2, yPos, 2, height * 5 };
 		break;
 	case AnimationDirection::UP:
-		viewRect = { xPos, yPos, 2, height * 5 };
+		viewRect = { xPos + width / 2, yPos, 2, height * 5 };
 		break;
 	case AnimationDirection::LEFT:
-		viewRect = { xPos, yPos, 2 / 5, height };
+		viewRect = { xPos + width / 2, yPos, 2 / 5, height };
 		break;
 	case AnimationDirection::RIGHT:
-		viewRect = { xPos, yPos, 2 * 5, height };
+		viewRect = { xPos + width / 2, yPos, 2 * 5, height };
 		break;
 	default:
 		break;
 	}
+
+	if (isSpotted)
+		canWalk = false;
 	//SDL_RenderDrawRect(Window::GetRender(), &viewRect);
 }
 
