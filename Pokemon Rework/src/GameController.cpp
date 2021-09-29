@@ -131,12 +131,12 @@ void GameController::ReturnToLastCheckpoint()
 {
 	if (static_cast<Trainer*>(scene->GetPlayer())->IsWholeTeamDead() && state == GameState::Free)
 	{
-		for (int i = 0; i < dynamic_cast<Trainer*>(scene->GetPlayer())->GetSizeOfPokebag(); i++)
-		{
-			dynamic_cast<Trainer*>(scene->GetPlayer())->GetPokemonAtIndex(i)->RefreshHP();
-		}
-		scene->LoadNewScene(scene->GetCheckpoint().GetCurrentCheckpoint());
+		/*for (int i = 0; i < dynamic_cast<Trainer*>(scene->GetPlayer())->GetSizeOfPokebag(); i++)
+		{*/
+			dynamic_cast<Trainer*>(scene->GetPlayer())->GetPokemonAtIndex(0)->RefreshHP();
+		//}
 		//scene->GetCheckpoint().InitCheckpoints(scene->GetPlayer());
+		scene->LoadNewScene(&scene->GetCheckpoint().GetCurrentCheckpoint());
 		delete controller;
 		controller = new PlayerController(scene->GetPlayer(), scene->GetMap());
 		//dynamic_cast<Trainer*>(scene->GetPlayer())->SetXYPosition(scene->GetCheckpoint().GetPosition()->x, scene->GetCheckpoint().GetPosition()->y);

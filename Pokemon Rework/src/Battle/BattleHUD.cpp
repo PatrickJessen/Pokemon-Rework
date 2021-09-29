@@ -181,7 +181,11 @@ bool BattleHUD::AnimatePlayerDeath(Pokemon* pokemon)
 	if (transparency > 0)
 		transparency -= 15;
 	else
+	{
+		transparency = 255;
+		SDL_SetTextureAlphaMod(pokemon->GetBackTexture()->tex, transparency);
 		return true;
+	}
 
 	SDL_SetTextureAlphaMod(pokemon->GetBackTexture()->tex, transparency);
 	//bool isFinnished = pokeRect.y == 708;

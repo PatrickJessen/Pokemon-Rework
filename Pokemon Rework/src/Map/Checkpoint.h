@@ -24,15 +24,15 @@ public:
 				{
 					currentCheckpoint = x.first;
 					position = &x.second[i];
-					//std::cout << "checkpoint reached\n";
+					std::cout << "checkpoint reached\n";
 				}
 			}
 		}
 	}
 
-	Map* GetCurrentCheckpoint()
+	Map& GetCurrentCheckpoint()
 	{
-		return currentCheckpoint;
+		return *currentCheckpoint;
 	}
 
 	Vector2* GetPosition() { return position; }
