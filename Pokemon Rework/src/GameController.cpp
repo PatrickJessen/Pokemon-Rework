@@ -129,17 +129,18 @@ void GameController::StartBattle()
 
 void GameController::ReturnToLastCheckpoint()
 {
-	if (static_cast<Trainer*>(scene->GetPlayer())->IsWholeTeamDead() && state == GameState::Free)
+	if (dynamic_cast<Trainer*>(scene->GetPlayer())->IsWholeTeamDead() && state == GameState::Free)
 	{
 		/*for (int i = 0; i < dynamic_cast<Trainer*>(scene->GetPlayer())->GetSizeOfPokebag(); i++)
 		{*/
 			dynamic_cast<Trainer*>(scene->GetPlayer())->GetPokemonAtIndex(0)->RefreshHP();
 		//}
 		//scene->GetCheckpoint().InitCheckpoints(scene->GetPlayer());
-		scene->LoadNewScene(&scene->GetCheckpoint().GetCurrentCheckpoint());
+		scene->LoadNewScene(scene->GetCheckpoint()->currentCheckpoint);
 		delete controller;
 		controller = new PlayerController(scene->GetPlayer(), scene->GetMap());
 		//dynamic_cast<Trainer*>(scene->GetPlayer())->SetXYPosition(scene->GetCheckpoint().GetPosition()->x, scene->GetCheckpoint().GetPosition()->y);
-		scene->GetPlayer()->SetXYPosition(scene->GetCheckpoint().GetPosition()->x * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom(), scene->GetCheckpoint().GetPosition()->y * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom());
+		scene->GetPlayer()->SetXYPosition(scene->GetCheckpoint()->GetPosition()->x * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom(), scene->GetCheckpoint()->GetPosition()->y * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom());
+		//scene->GetCheckpoint()->NullifyCheckpoint();
 	}
 }

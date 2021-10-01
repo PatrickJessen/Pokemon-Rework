@@ -19,13 +19,16 @@ public:
 	Draw GetDraw() { return draw; }
 	void SetNewCheckpoint();
 	Map* GetLastCheckpoint();
-	Checkpoint GetCheckpoint() { return checkpoint; }
+	Checkpoint* GetCheckpoint() { return checkpoint; }
+	void SetCurrent() { current = checkpoint->currentCheckpoint; }
+	Map* GetCurrent() { return current; }
 
 private:
 	int x;
 	Map* current = nullptr;
+	const Map* current2 = nullptr;
 	Draw draw;
 	Character* player = nullptr;
 	Map* lastCheckpoint = nullptr;
-	Checkpoint checkpoint;
+	Checkpoint* checkpoint;
 };
