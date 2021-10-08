@@ -149,6 +149,8 @@ void PlayerController::Interact()
 					map->GetCollidedNpc()->Animate(AnimationDirection::LEFT, 1);
 				break;
 			}
+			else
+				map->SetCollidedNpc(nullptr);
 
 }
 

@@ -15,6 +15,7 @@ Scene::~Scene()
 void Scene::Update()
 {
 	draw.Update(current, player);
+	current->Update();
 	checkpoint->SetCurrentCheckpoint(GetMap()->GetCamera());
 	//std::cout << (Map*)lastCheckpoint->x << "\n";
 }

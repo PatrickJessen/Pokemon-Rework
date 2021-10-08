@@ -13,7 +13,6 @@ Trainer::Trainer(std::string name, std::string texturePath, std::string battleTe
 	battleSprite = new Sprite(battleTexturePath, SDL_ScaleMode::SDL_ScaleModeNearest);
 
 	position = { xPos, yPos, width, height };
-	interactPoint = { xPos + width / 2, yPos + height / 2 + 5, 10, 10 };
 
 	isTrainer = true;
 }
@@ -25,7 +24,7 @@ Trainer::~Trainer()
 
 void Trainer::Update(float elapsedTime)
 {
-	switch (animDir)
+	/*switch (animDir)
 	{
 	case AnimationDirection::DOWN:
 		viewRect = { xPos + width / 2, yPos, 2, height * 5 };
@@ -41,11 +40,12 @@ void Trainer::Update(float elapsedTime)
 		break;
 	default:
 		break;
-	}
+	}*/
 
 	if (isSpotted)
 		canWalk = false;
-	//SDL_RenderDrawRect(Window::GetRender(), &viewRect);
+
+	SDL_RenderDrawRect(Window::GetRender(), &interactPoint);
 }
 
 bool Trainer::IsWholeTeamDead()

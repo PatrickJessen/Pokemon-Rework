@@ -105,10 +105,10 @@ void Window::Update()
 void Window::Clear()
 {
 	SDL_RenderClear(renderer);
-	/*SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_Rect rect = { 0, 0, mWidth, mHeight };
 
-	SDL_RenderFillRect(renderer, &rect);*/
+	SDL_RenderFillRect(renderer, &rect);
 }
 
 void Window::Render()

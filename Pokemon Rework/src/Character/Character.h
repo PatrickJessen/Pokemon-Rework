@@ -54,6 +54,7 @@ public:
 	void SetIsWalking(bool value) { isWalking = value; }
 	void SetCanWalk(bool value) { canWalk = value; }
 	void SetCollisionPoint(int x, int y, int w, int h);
+	void SetInteractPoint(int x, int y, int w, int h);
 	void AddDialog(std::string message);
 	void ClearDialog();
 	void ClearPath();

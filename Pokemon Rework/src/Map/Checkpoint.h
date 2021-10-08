@@ -36,7 +36,7 @@ public:
 				std::memcpy(currentCheckpoint, testing[i]->map, sizeof(testing[i]->map));
 				
 				position = &testing[i]->vec2;
-				std::cout << "checkpoint reached\n";
+				//std::cout << "checkpoint reached\n";
 			}
 		}
 		//for (auto& x : checkpoints)
@@ -67,7 +67,7 @@ public:
 	Map* currentCheckpoint = nullptr;
 private:
 	Map* pTown;
-	std::map<Map, Vector2> checkpoints;
+	std::map<Map*, Vector2> checkpoints;
 	std::vector<TestClass*> testing;
 	Map* testmap;
 	Vector2* position;

@@ -123,6 +123,9 @@
     <ClCompile Include="src\Pokes\Gen1\Charizard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Map\Region\Kanto\Pallet Town\OakLab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libfreetype-6.dll" />
@@ -287,6 +290,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Map\ICheckpoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Map\Region\Kanto\Pallet Town\OakLab.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

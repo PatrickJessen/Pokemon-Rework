@@ -12,6 +12,7 @@ public:
 	virtual Map* LoadNewMap() override;
 	virtual Pokemon* SpawnPokemon() override;
 	virtual Map* SpawnAtCheckpoint() override;
+	virtual void Update() override;
 
 private:
 	Map* pTown = nullptr;

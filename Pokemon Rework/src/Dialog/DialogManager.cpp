@@ -30,20 +30,25 @@ void DialogManager::ShowDialog(Dialog dialog)
 	}
 }
 
+void DialogManager::ShowNextLine()
+{
+	currentLine++;
+	if (currentLine < dialog.Lines.size())
+	{
+		TypeDialog(dialog.Lines[currentLine]);
+	}
+	else
+	{
+		SetIsActive(false);
+		currentLine = 0;
+	}
+}
+
 void DialogManager::HandleUpdate()
 {
 	if (Input::KeyPressed(Key::SPACE))
 	{
-		currentLine++;
-		if (currentLine < dialog.Lines.size())
-		{
-			TypeDialog(dialog.Lines[currentLine]);
-		}
-		else
-		{
-			SetIsActive(false);
-			currentLine = 0;
-		}
+		ShowNextLine();
 	}
 }
 

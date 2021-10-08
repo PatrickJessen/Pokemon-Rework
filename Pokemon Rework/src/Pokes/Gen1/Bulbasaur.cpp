@@ -20,9 +20,9 @@ bool Bulbasaur::OnPokemonCreate()
 		learnMoves.push_back(LearnableMove(48, new Move(Moves::SOLARBEAM, "Solarbeam", Type::GRASS, 100, 120, Category::SPECIAL)));
 		GenerateMoveset();
 		hp = stats.MaxHP;
-		return created = true;
+		created = true;
 	}
-	return created = false;
+	return created;
 }
 
 void Bulbasaur::Evolve(int level)

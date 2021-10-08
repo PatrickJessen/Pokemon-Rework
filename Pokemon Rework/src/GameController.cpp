@@ -39,7 +39,10 @@ void GameController::Update(float elapsedTime)
 	case GameState::Encounter:
 		break;
 	case GameState::Dialog:
-		dialogManager->ShowDialog(scene->GetMap()->GetCollidedNpc()->GetDialog());
+		if (scene->GetMap()->GetCollidedNpc() == nullptr)
+			dialogManager->ShowDialog(scene->GetPlayer()->GetDialog());
+		else
+			dialogManager->ShowDialog(scene->GetMap()->GetCollidedNpc()->GetDialog());
 		break;
 	default:
 		break;
@@ -64,7 +67,7 @@ void GameController::ConstantUpdate(float elapsedTime)
 
 		if (npcController.TrainerInSight(scene->GetMap()->GetNpcs()[i], scene->GetPlayer()) && !static_cast<Trainer*>(scene->GetPlayer())->GetIsSpottet());
 		{
-			scene->GetMap()->SetCollidedNpc(scene->GetMap()->GetNpcs()[i]);
+			//scene->GetMap()->SetCollidedNpc(scene->GetMap()->GetNpcs()[i]);
 		}
 	}
 	//for (int i = 0; i < scene->GetMap()->GetNpcs().size(); i++)
@@ -131,16 +134,16 @@ void GameController::ReturnToLastCheckpoint()
 {
 	if (dynamic_cast<Trainer*>(scene->GetPlayer())->IsWholeTeamDead() && state == GameState::Free)
 	{
-		/*for (int i = 0; i < dynamic_cast<Trainer*>(scene->GetPlayer())->GetSizeOfPokebag(); i++)
-		{*/
-			dynamic_cast<Trainer*>(scene->GetPlayer())->GetPokemonAtIndex(0)->RefreshHP();
-		//}
+		for (int i = 0; i < dynamic_cast<Trainer*>(scene->GetPlayer())->GetSizeOfPokebag(); i++)
+		{
+			dynamic_cast<Trainer*>(scene->GetPlayer())->GetPokemonAtIndex(i)->RefreshHP();
+		}
 		//scene->GetCheckpoint().InitCheckpoints(scene->GetPlayer());
-		scene->LoadNewScene(scene->GetCheckpoint()->currentCheckpoint);
+		/*scene->LoadNewScene(scene->GetCheckpoint()->currentCheckpoint);
 		delete controller;
-		controller = new PlayerController(scene->GetPlayer(), scene->GetMap());
+		controller = new PlayerController(scene->GetPlayer(), scene->GetMap());*/
 		//dynamic_cast<Trainer*>(scene->GetPlayer())->SetXYPosition(scene->GetCheckpoint().GetPosition()->x, scene->GetCheckpoint().GetPosition()->y);
-		scene->GetPlayer()->SetXYPosition(scene->GetCheckpoint()->GetPosition()->x * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom(), scene->GetCheckpoint()->GetPosition()->y * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom());
+		//scene->GetPlayer()->SetXYPosition(scene->GetCheckpoint()->GetPosition()->x * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom(), scene->GetCheckpoint()->GetPosition()->y * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom());
 		//scene->GetCheckpoint()->NullifyCheckpoint();
 	}
 }

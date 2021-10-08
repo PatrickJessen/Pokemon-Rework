@@ -167,6 +167,7 @@
     <ClCompile Include="src\Core\Sprite.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Map\Map.cpp" />
+    <ClCompile Include="src\Map\Region\Kanto\Pallet Town\OakLab.cpp" />
     <ClCompile Include="src\Map\Region\Kanto\Pallet Town\PalletTown.cpp" />
     <ClCompile Include="src\Map\Region\Kanto\Routes\Route1.cpp" />
     <ClCompile Include="src\Pokes\Gen1\Bulbasaur.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="src\Map\Checkpoint.h" />
     <ClInclude Include="src\Map\ICheckpoint.h" />
     <ClInclude Include="src\Map\Map.h" />
+    <ClInclude Include="src\Map\Region\Kanto\Pallet Town\OakLab.h" />
     <ClInclude Include="src\Map\Region\Kanto\Pallet Town\PalletTown.h" />
     <ClInclude Include="src\Map\Region\Kanto\Routes\Route1.h" />
     <ClInclude Include="src\Map\SpawnPokes.h" />

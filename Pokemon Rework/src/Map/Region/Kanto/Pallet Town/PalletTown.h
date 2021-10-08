@@ -10,6 +10,7 @@ public:
 	~PalletTown();
 	virtual Map* LoadNewMap() override;
 	virtual Map* SpawnAtCheckpoint() override;
+	virtual void Update() override;
 
 private:
 	Map* route1 = nullptr;

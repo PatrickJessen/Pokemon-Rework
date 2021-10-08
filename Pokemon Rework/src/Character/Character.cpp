@@ -102,6 +102,11 @@ void Character::SetCollisionPoint(int x, int y, int w, int h)
 	collisionPoint.h = h;
 }
 
+void Character::SetInteractPoint(int x, int y, int w, int h)
+{
+	interactPoint = { x, y, w, h };
+}
+
 void Character::AddDialog(std::string message)
 {
 	dialog.Lines.push_back(message);

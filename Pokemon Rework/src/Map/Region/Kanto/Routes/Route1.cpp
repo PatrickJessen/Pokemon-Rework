@@ -64,3 +64,7 @@ Map* Route1::SpawnAtCheckpoint()
 {
 	return lastCheckpoint;
 }
+
+void Route1::Update()
+{
+}

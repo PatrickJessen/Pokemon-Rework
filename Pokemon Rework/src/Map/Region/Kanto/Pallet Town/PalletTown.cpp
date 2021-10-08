@@ -1,4 +1,5 @@
 #include "PalletTown.h"
+#include "OakLab.h"
 
 PalletTown::PalletTown(Character* player, int width, int height, int tileSize, int zoneLevel, int zoom)
 {
@@ -18,17 +19,19 @@ PalletTown::PalletTown(Character* player, int width, int height, int tileSize, i
 	doors.emplace(1, std::vector<Vector2> { Vector2(0, 11), Vector2(0, 12), Vector2(0, 13)
 		, Vector2(0, 14), Vector2(0, 15), Vector2(0, 16), Vector2(0, 17) });
 
+	doors.emplace(0, std::vector<Vector2> { Vector2(18, 23) });
+
 	npcs.push_back(new Npc("Shit", "Assets/Trainers/Gary.png", 70, 70, 62, 65));
 	npcs[0]->SetXYPosition(10 * tileSize * camera->GetZoom() - 5, 5 * tileSize * camera->GetZoom() - 9);
-	npcs.push_back(new Trainer("Trainer", "Assets/Trainers/Gary.png", "Assets/Characters/garyFront.png", 70, 70, 62, 65, 500));
-	npcs[1]->SetXYPosition(10 * tileSize * camera->GetZoom() - 5, 10 * tileSize * camera->GetZoom() - 9);
-	npcs[1]->AddDialog("You think you can defeat me?");
-	static_cast<Trainer*>(npcs[1])->AddPokemonToBag(new Bulbasaur(5));
+	//npcs.push_back(new Trainer("Trainer", "Assets/Trainers/Gary.png", "Assets/Characters/garyFront.png", 70, 70, 62, 65, 500));
+	//npcs[1]->SetXYPosition(10 * tileSize * camera->GetZoom() - 5, 10 * tileSize * camera->GetZoom() - 9);
+	//npcs[1]->AddDialog("You think you can defeat me?");
+	//static_cast<Trainer*>(npcs[1])->AddPokemonToBag(new Bulbasaur(5));
 	static_cast<Trainer*>(player)->AddPokemonToBag(new Charizard(100));
 	static_cast<Trainer*>(player)->GetPokemonAtIndex(0)->OnPokemonCreate();
-	static_cast<Trainer*>(npcs[1])->GetPokemonAtIndex(0)->OnPokemonCreate();
+	//static_cast<Trainer*>(npcs[1])->GetPokemonAtIndex(0)->OnPokemonCreate();
 	std::cout << static_cast<Trainer*>(player)->GetPokemonAtIndex(0)->name << "\n";
-	std::cout << static_cast<Trainer*>(npcs[1])->GetPokemonAtIndex(0)->name << "\n";
+	//std::cout << static_cast<Trainer*>(npcs[1])->GetPokemonAtIndex(0)->name << "\n";
 	npcs[0]->AddDialog("Have you visited Oak's lab?");
 	npcs[0]->AddDialog("You can get your first pokemon there");
 	//npcs[0]->AddToMovePattern(NpcPattern(Vector2(npcs[0]->GetXPos() / tileSize / zoom * 2, 0), AnimationDirection::RIGHT));
@@ -56,8 +59,9 @@ Map* PalletTown::LoadNewMap()
 	case 0:
 	{
 		//trainer->GetCollisionPoint() = { trainer->GetXPos() + trainer->GetWidth() / 2, trainer->GetYPos() + trainer->GetHeight() / 2 + 5, 10, 10 };
-		/*oakLab = new OakLab(trainer, camera, 1, 27, 27, 32);
-		return oakLab;*/
+		//oakLab = new OakLab(trainer, camera, 1, 27, 27, 32);
+		player->SetXYPosition(14 * tileSize - 5, 22 * tileSize - 8);
+		return new OakLab(player, 27, 27, 32, 0, 1);
 	}
 	break;
 	case 1:
@@ -77,4 +81,8 @@ Map* PalletTown::LoadNewMap()
 Map* PalletTown::SpawnAtCheckpoint()
 {
 	return lastCheckpoint;
+}
+
+void PalletTown::Update()
+{
 }

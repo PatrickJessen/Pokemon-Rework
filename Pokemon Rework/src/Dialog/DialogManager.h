@@ -16,6 +16,7 @@ public:
 	void ShowDialog(Dialog dialog);
 	bool GetIsActive() { return isActive; }
 	void SetIsActive(bool value) { isActive = value; }
+	void ShowNextLine();
 private:
 	void HandleUpdate();
 	void DrawBox();

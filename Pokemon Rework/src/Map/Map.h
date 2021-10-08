@@ -31,6 +31,7 @@ class Map
 public:
 	virtual ~Map();
 	virtual Map* LoadNewMap() = 0;
+	virtual void Update() = 0;
 
 	void InitMap();
 	void SetNpcTile();
@@ -55,13 +56,14 @@ public:
 	Vector2* checkpoint = nullptr;
 	bool ContainsCheckpoint() { return containsCheckpoint; }
 
-	int x = 10;
 	Map* lastCheckpoint = nullptr;
 
 private:
 	void LoadSpriteEntities();
 
 protected:
+	Character* GetCharacterByName(std::string name);
+
 	//Initializes map / creating dynamic 2d array of tile struct
 	Tile** tiles;
 	std::string filePath;

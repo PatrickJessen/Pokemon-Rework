@@ -49,6 +49,8 @@ void Map::InitMap()
         }
 
     LoadSpriteEntities();
+
+    player->SetInteractPoint(player->GetXPos() + width / 2, player->GetYPos() + height / 2 + 5, 10, 10);
 }
 
 void Map::SetNpcTile()
@@ -174,4 +176,14 @@ void Map::LoadSpriteEntities()
 
         sprites.push_back(new SpriteEntity(new Sprite(myPath.c_str(), SDL_ScaleMode::SDL_ScaleModeNearest), rect, std::stoi(layer)));
     }
+}
+
+Character* Map::GetCharacterByName(std::string name)
+{
+    for (int i = 0; i < npcs.size(); i++)
+    {
+        if (name == npcs[i]->GetName())
+            return npcs[i];
+    }
+    return nullptr;
 }
