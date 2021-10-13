@@ -86,3 +86,12 @@ void NpcController::StartEncounter(Character* character, Character* player, Dial
 		static_cast<Trainer*>(player)->SetIsInTrainerBattle(true);
 	}
 }
+
+void NpcController::StartDefaultEncounter(Character* character, Character* player, DialogManager* dialog)
+{
+	if (!dialog->GetIsActive() && !defaultStarted)
+	{
+		battle = new BattleTrainer(player, character);
+		defaultStarted = true;
+	}
+}

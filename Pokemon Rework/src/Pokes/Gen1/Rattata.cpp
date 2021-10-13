@@ -15,6 +15,7 @@ bool Rattata::OnPokemonCreate()
 		learnMoves.push_back(LearnableMove(23, new Move(Moves::FOCUS_ENERGY, "Focus Energy", Type::NORMAL, 0, 0, Category::STATUS)));
 		learnMoves.push_back(LearnableMove(34, new Move(Moves::SUPER_FANG, "Super Fang", Type::NORMAL, 90, 0, Category::PHYSICAL)));
 		GenerateMoveset();
+		expYield = 64;
 		hp = stats.MaxHP;
 		return created = true;
 	}

@@ -5,7 +5,7 @@ class BattlePokemon : public BattleSystem
 {
 public:
 	BattlePokemon(Character* player, Pokemon* pokemon);
-	BattlePokemon() = default;
+	BattlePokemon();
 
 public:
 	virtual void SetupBattle() override;

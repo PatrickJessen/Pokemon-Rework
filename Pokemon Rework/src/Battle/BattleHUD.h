@@ -9,6 +9,7 @@
 class BattleHUD
 {
 public:
+	~BattleHUD();
 	void SetData();
 	void DrawBattleFrame();
 	void DrawTrainerEntrance(Trainer* trainer);
@@ -19,6 +20,7 @@ public:
 	void DrawEnemyTrainerPokemonEntrance(Pokemon* opponent);
 	void DrawPokemonBar(Pokemon* player, Pokemon* opponent);
 	void DrawHealthBar(SDL_Rect rect);
+	void DrawExpBar(SDL_Rect rect);
 	void DrawOptions();
 	void DrawMoves(Pokemon* pokemon);
 	void DrawHelper(int count, Text* text);

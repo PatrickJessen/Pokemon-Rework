@@ -295,5 +295,8 @@
     <ClInclude Include="src\Map\Region\Kanto\Pallet Town\OakLab.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Quest\Quest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

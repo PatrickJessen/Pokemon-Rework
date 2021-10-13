@@ -12,6 +12,7 @@ public:
 	SDL_Rect GetCamera() { return cam; }
 	SDL_Rect SetCamera() { return cam; }
 	void SetTarget(SDL_Rect* target);
+	SDL_Rect* GetTarget() { return target; }
 	int GetZoom() { return zoom; }
 	void SetZoom(int value) { zoom = value; }
 	void SetOptions(int tileSize, int height, int extra);

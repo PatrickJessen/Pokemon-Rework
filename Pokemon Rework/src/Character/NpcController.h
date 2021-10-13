@@ -14,6 +14,7 @@ public:
 	bool TrainerInSight(Character* character, Character* player);
 	BattleSystem* GetBattleSystem() { return battle; }
 	void StartEncounter(Character* character, Character* player, DialogManager* dialog);
+	void StartDefaultEncounter(Character* character, Character* player, DialogManager* dialog);
 
 	bool movePatternIsDone = false;
 private:
@@ -27,4 +28,5 @@ private:
 	int timer = 0;
 	bool encounterStarted = false;
 	bool encountered = false;
+	bool defaultStarted = false;
 };

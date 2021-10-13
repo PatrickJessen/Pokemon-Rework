@@ -19,7 +19,7 @@ Route1::Route1(Character* player, int width, int height, int tileSize, int zoneL
 
 	//pokesInThisZone.push_back(SpawnPokes(new Pidgey((rand() + zoneLevel + 1) % 6), 100, 70));
 	//pokesInThisZone.push_back(SpawnPokes(new Rattata((rand() + zoneLevel + 1) % 6), 100, 70));
-	pokesInThisZone.push_back(SpawnPokes(new Mew((rand() + zoneLevel + 1) % 6), 100, 70));
+	pokesInThisZone.push_back(SpawnPokes(new Rattata(3), 100, 70));
 }
 
 Route1::~Route1()
@@ -55,7 +55,7 @@ Map* Route1::LoadNewMap()
 Pokemon* Route1::SpawnPokemon()
 {
 	spawnedPoke = pokesInThisZone[Random::InRange(0, pokesInThisZone.size())].Pokemon;
-	spawnedPoke->SetLevel(100);
+	spawnedPoke->SetLevel(3);
 	spawnedPoke->OnPokemonCreate();
 	return spawnedPoke;
 }

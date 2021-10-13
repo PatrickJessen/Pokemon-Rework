@@ -11,6 +11,7 @@ GameController::GameController()
 	//scene->GetPlayer()->SetXYPosition(0, 0);
 	dialogManager = new DialogManager();
 	controller = new PlayerController(scene->GetPlayer(), scene->GetMap());
+	AddQuests();
 }
 
 GameController::~GameController()
@@ -31,6 +32,7 @@ void GameController::Update(float elapsedTime)
 		scene->GetPlayer()->SetCanWalk(true);
 		break;
 	case GameState::TrainerBattle:
+		npcController.StartDefaultEncounter(scene->GetMap()->GetCollidedNpc(), scene->GetPlayer(), dialogManager);
 		npcController.GetBattleSystem()->Update();
 		break;
 	case GameState::PokemonBattle:
@@ -97,6 +99,9 @@ void GameController::ConstantUpdate(float elapsedTime)
 		scene->GetDraw().DrawExclamationmark(scene->GetMap()->GetCollidedNpc());
 		npcController.StartEncounter(scene->GetMap()->GetCollidedNpc(), scene->GetPlayer(), dialogManager);
 	}
+
+	if (scene->GetMap()->GetCamera()->GetTarget() != &scene->GetPlayer()->GetPosition())
+		scene->GetPlayer()->SetCanWalk(false);
 	//else
 	//	state = GameState::Free;
 }
@@ -146,4 +151,10 @@ void GameController::ReturnToLastCheckpoint()
 		//scene->GetPlayer()->SetXYPosition(scene->GetCheckpoint()->GetPosition()->x * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom(), scene->GetCheckpoint()->GetPosition()->y * scene->GetMap()->GetTileSize() * scene->GetMap()->GetCamera()->GetZoom());
 		//scene->GetCheckpoint()->NullifyCheckpoint();
 	}
+}
+
+void GameController::AddQuests()
+{
+	scene->GetPlayer()->AddNewQuest(new Quest("Enounter Gary", 2));
+	scene->GetPlayer()->AddNewQuest(new Quest("Grab a pokeball from professor Oak.", 1));
 }

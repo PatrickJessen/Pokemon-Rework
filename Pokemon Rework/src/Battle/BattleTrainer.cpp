@@ -10,8 +10,10 @@ BattleTrainer::BattleTrainer(Character* player, Character* enemy)
 	this->player->SetInBattlePokemon(GetNextHealthyPokemon());
 	playerHpMaxWidth = 175;
 	enemyHpMaxWidth = 175;
+	expBarMaxWidth = 175;
 	enemyHpBar = { 417, 301, enemyHpMaxWidth, 10 };
 	playerHpBar = { 895, 648, playerHpMaxWidth, 10 };
+	expBar = { 895, 630, expBarMaxWidth, 10 };
 
 	winningQuotes = { "Dammit you defeated me! gl on your journey", "WHAT HOW?! i better go train..", "Here take my money $" + std::to_string(this->enemy->GetMoney()), "Wow! you're really good! gl" };
 	losingQuotes = { "You're not strong enough for me!", "Go train so you can get stronger", "That was easy..", "Next..." };
@@ -50,9 +52,12 @@ void BattleTrainer::Update()
 			bHud.DrawPokemonBar(player->GetInBattlePokemon(), enemy->GetInBattlePokemon());
 			bHud.DrawHealthBar(playerHpBar);
 			bHud.DrawHealthBar(enemyHpBar);
+			bHud.DrawExpBar(expBar);
 
 			enemyHpBar.w = (enemy->GetInBattlePokemon()->GetHP() * enemyHpMaxWidth) / enemy->GetInBattlePokemon()->GetStats().MaxHP;
 			playerHpBar.w = (player->GetInBattlePokemon()->GetHP() * enemyHpMaxWidth) / player->GetInBattlePokemon()->GetStats().MaxHP;
+			expBar.w = (player->GetInBattlePokemon()->GetExp() * expBarMaxWidth) / player->GetInBattlePokemon()->GetRequiredExp(); // / max exp
+			
 		}
 	}
 
@@ -113,7 +118,15 @@ void BattleTrainer::PerformPlayerAttack()
 			enemy->GetInBattlePokemon()->TakeDamage(player->GetInBattlePokemon(), currentMove);
 			message = player->GetInBattlePokemon()->GetName() + " Used " + player->GetInBattlePokemon()->GetMoveAt(currentMove)->GetMoveName();
 			if (enemy->GetInBattlePokemon()->GetHP() < 0)
+			{
+				int enemyLevel = enemy->GetInBattlePokemon()->GetLevel();
+
+				int expGain = (enemyLevel * 1.5f) / 7;
+
+				player->GetInBattlePokemon()->SetExp(expGain);
+				std::this_thread::sleep_for(std::chrono::seconds(2));
 				enemy->SetInBattlePokemon(GetEnemyNextHealthyPokemon());
+			}
 			else
 			{
 				state = BattleState::EnemyMove;

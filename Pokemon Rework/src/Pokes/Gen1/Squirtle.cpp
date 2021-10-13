@@ -19,6 +19,8 @@ bool Squirtle::OnPokemonCreate()
 
 		GenerateMoveset();
 		hp = stats.MaxHP;
+		expYield = 64;
+		requiredExp = GetExpForLevel(stats.Level);
 		return created = true;
 	}
 	return created = false;

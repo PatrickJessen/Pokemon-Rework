@@ -1,8 +1,12 @@
 #include "Character.h"
+#include "Trainer.h"
 
 Character::~Character()
 {
 	delete sprite;
+	for (int i = 0; i < quests.size(); i++)
+		delete quests[i];
+	quests.clear();
 }
 
 void Character::Animate(AnimationDirection dir, int tickTimes)
@@ -54,6 +58,15 @@ void Character::UpdateCharacter(float elapsedTime)
 	default:
 		break;
 	}
+
+	if (!isVisible)
+	{
+		SDL_SetTextureBlendMode(sprite->tex, SDL_BLENDMODE_BLEND);
+		SDL_SetTextureAlphaMod(sprite->tex, 0);
+	}
+	else
+		SDL_SetTextureAlphaMod(sprite->tex, 255);
+
 }
 
 void Character::Move(NpcPattern moveVec)
@@ -89,6 +102,15 @@ void Character::AddToMovePattern(NpcPattern pattern)
 	movePattern.push_back(pattern);
 }
 
+Quest* Character::GetQuestByNumber(int num)
+{
+	for (int i = 0; i < quests.size(); i++)
+		if (quests[i]->GetNumber() == num)
+			return quests[i];
+
+	return nullptr;
+}
+
 void Character::SetSrcRect(int x, int y, int w, int h)
 {
 	srcRect = { x, y, w, h };
@@ -107,6 +129,11 @@ void Character::SetInteractPoint(int x, int y, int w, int h)
 	interactPoint = { x, y, w, h };
 }
 
+void Character::SetVisibility(bool value)
+{
+	isVisible = value;
+}
+
 void Character::AddDialog(std::string message)
 {
 	dialog.Lines.push_back(message);
@@ -120,4 +147,31 @@ void Character::ClearDialog()
 void Character::ClearPath()
 {
 	movePattern.clear();
+}
+
+bool Character::MoveTowardsPlayer(Trainer* player, int tileSize, int zoom)
+{
+	/*if (GetTileX(tileSize, zoom) - 1 < player->GetTileX(tileSize, zoom))
+		xPos += speed;*/
+	if (GetTileY(tileSize, zoom) - 1 > player->GetTileY(tileSize, zoom))
+	{
+		isWalking = true;
+		Animate(AnimationDirection::UP, 4);
+		yPos -= speed;
+	}
+	else if (GetTileX(tileSize, zoom) > player->GetTileX(tileSize, zoom))
+	{
+		isWalking = true;
+		Animate(AnimationDirection::LEFT, 4);
+		xPos -= speed;
+	}
+	//else if (GetTileY(tileSize, zoom) + 1 < player->GetTileY(tileSize, zoom))
+	//	yPos += speed;
+	else
+	{
+		isWalking = false;
+		Animate(player->GetDirection(), 1);
+		return true;
+	}
+	return false;
 }

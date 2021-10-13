@@ -52,6 +52,15 @@ void Pokemon::AddLevel()
 	stats.Level++;
 }
 
+int Pokemon::GetExpForLevel(int level)
+{
+	if (growthRate == GrowthRate::Fast)
+		return 4 * (level * level * level) / 5;
+	else if (growthRate == GrowthRate::MediumFast)
+		return level * level * level;
+	return -1;
+}
+
 //void Pokemon::GenerateMoves()
 //{
 //	for (int i = 0; i < stats.learnableMoves.size(); i++)

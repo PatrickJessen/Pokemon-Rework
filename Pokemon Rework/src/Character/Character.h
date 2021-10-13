@@ -5,9 +5,10 @@
 #include "../Core/Collision.h"
 #include "../Core/Vector2.h"
 #include "NpcPattern.h"
+#include "../Quest/Quest.h"
 
 enum class WalkDirection { DOWN, UP, LEFT, RIGHT, NONE };
-
+class Trainer;
 class Character
 {
 public:
@@ -42,6 +43,11 @@ public:
 	bool GetIsWalking() { return isWalking; }
 	bool GetIsTrainer() { return isTrainer; }
 	bool GetCanWalk() { return canWalk; }
+	bool IsVisible() { return isVisible; }
+	int GetTileX(int tileSize, int zoom) { return xPos / tileSize / zoom; }
+	int GetTileY(int tileSize, int zoom) { return yPos / tileSize / zoom; }
+	std::vector<Quest*> GetQuest() { return quests; }
+	Quest* GetQuestByNumber(int num);
 
 public:
 	void SetSrcRect(int x, int y, int w, int h);
@@ -55,9 +61,14 @@ public:
 	void SetCanWalk(bool value) { canWalk = value; }
 	void SetCollisionPoint(int x, int y, int w, int h);
 	void SetInteractPoint(int x, int y, int w, int h);
+	void SetVisibility(bool value);
+
+public:
 	void AddDialog(std::string message);
 	void ClearDialog();
 	void ClearPath();
+	void AddNewQuest(Quest* quest) { quests.push_back(quest); }
+	bool MoveTowardsPlayer(Trainer* player, int tileSize, int zoom);
 
 protected:
 	int xPos = 0;
@@ -81,4 +92,6 @@ protected:
 	bool isTrainer = false;
 	int deltaX = 0;
 	int deltaY = 0;
+	bool isVisible = true;
+	std::vector<Quest*> quests;
 };

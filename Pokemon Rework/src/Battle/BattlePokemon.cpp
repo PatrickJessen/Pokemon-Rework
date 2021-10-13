@@ -10,8 +10,15 @@ BattlePokemon::BattlePokemon(Character* player, Pokemon* pokemon)
 	this->player->SetInBattlePokemon(GetNextHealthyPokemon());
 	playerHpMaxWidth = 175;
 	enemyHpMaxWidth = 175;
+	expBarMaxWidth = 175;
 	enemyHpBar = { 417, 301, enemyHpMaxWidth, 10 };
 	playerHpBar = { 895, 648, playerHpMaxWidth, 10 };
+	expBar = { 895, 600, expBarMaxWidth, 10 };
+}
+
+BattlePokemon::BattlePokemon()
+{
+	delete pokemon;
 }
 
 void BattlePokemon::SetupBattle()
@@ -97,7 +104,16 @@ void BattlePokemon::PerformPlayerAttack()
 			//enemyHpBar.w = (poke->GetHP() * enemyHpMaxWidth) / poke->GetStats().MaxHP;
 			message = player->GetInBattlePokemon()->GetName() + " Used " + player->GetInBattlePokemon()->GetMoveAt(currentMove)->GetMoveName();
 			if (poke->GetHP() < 0)
+			{
+				int expYield = poke->GetExpYield();
+				int enemyLevel = poke->GetLevel();
+
+				int expGain = (expYield * enemyLevel * 1) / 7;
+				std::cout << player->GetInBattlePokemon()->GetExp() << "\n";
+				player->GetInBattlePokemon()->SetExp(expGain);
+				std::cout << player->GetInBattlePokemon()->GetExp() << "\n";
 				state = BattleState::End;
+			}
 			else
 			{
 				state = BattleState::EnemyMove;
@@ -119,6 +135,7 @@ void BattlePokemon::PerformEnemyAttack()
 	message = poke->GetName() + " Used " + poke->GetMoveAt(PrioritiesEnemyMove(poke))->GetMoveName();
 	if (player->GetInBattlePokemon()->GetHP() < 0)
 	{
+		
 		message = player->GetInBattlePokemon()->GetName() + " Fainted!";
 		state = BattleState::Death;
 		//player->SetInBattlePokemon(GetNextHealthyPokemon());
@@ -171,6 +188,7 @@ void BattlePokemon::UpdateUI()
 			bHud.DrawPokemonBar(player->GetInBattlePokemon(), poke);
 			bHud.DrawHealthBar(playerHpBar);
 			bHud.DrawHealthBar(enemyHpBar);
+			bHud.DrawExpBar(expBar);
 
 			UpdateHealth();
 		}
@@ -183,6 +201,7 @@ void BattlePokemon::UpdateHealth()
 {
 	enemyHpBar.w = (poke->GetHP() * enemyHpMaxWidth) / poke->GetStats().MaxHP;
 	playerHpBar.w = (player->GetInBattlePokemon()->GetHP() * enemyHpMaxWidth) / player->GetInBattlePokemon()->GetStats().MaxHP;
+	expBar.w = (player->GetInBattlePokemon()->GetExp() * expBarMaxWidth) / player->GetInBattlePokemon()->GetRequiredExp(); // / max exp
 }
 
 void BattlePokemon::Run()

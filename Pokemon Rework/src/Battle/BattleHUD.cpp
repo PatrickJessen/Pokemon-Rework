@@ -1,5 +1,10 @@
 #include "BattleHUD.h"
 
+BattleHUD::~BattleHUD()
+{
+	delete font;
+}
+
 void BattleHUD::SetData()
 {
 	TTF_Init();
@@ -88,6 +93,12 @@ void BattleHUD::DrawHealthBar(SDL_Rect rect)
 {
 	Sprite HP("Assets/GFX/hp.png", SDL_ScaleMode::SDL_ScaleModeBest);
 	SDL_RenderCopy(Window::GetRender(), HP.tex, NULL, &rect);
+}
+
+void BattleHUD::DrawExpBar(SDL_Rect rect)
+{
+	Sprite XP("Assets/GFX/XpBar.png", SDL_ScaleMode::SDL_ScaleModeBest);
+	SDL_RenderCopy(Window::GetRender(), XP.tex, NULL, &rect);
 }
 
 void BattleHUD::DrawOptions()

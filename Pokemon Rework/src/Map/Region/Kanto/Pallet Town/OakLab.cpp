@@ -70,7 +70,7 @@ void OakLab::Update()
 	player->GetInteractPoint().y -= camera->GetCamera().y;
 
 	if (GetCharacterByName("Prof. Oak")->GetDialog().Lines.size() == 0)
-		GetCharacterByName("Prof. Oak")->AddDialog("Choose your first pokemon wisely");
+		GetCharacterByName("Prof. Oak")->AddDialog("Choose your first pokemon wisely");;
 }
 
 void OakLab::PlacePokeballs()
@@ -157,11 +157,12 @@ void OakLab::ChooseStarterPokemon(std::string name)
 			DialogManager::GetInstance()->ShowNextLine();
 			player->AddDialog("You choose " + name + " congratulations!");
 			DialogManager::GetInstance()->SetIsActive(true);
+			player->GetQuestByNumber(1)->SetIsFinnished(true);
 			//trainer->Quests[0]->completed = true;
 		}
 	}
-	/*else if (Input::KeyPressed(Key::N) && MenuHUD::IsMessageBoxOpen())
-		MenuHUD::CloseMessageBox();*/
+	else if (Input::KeyPressed(Key::N) && DialogManager::GetInstance()->GetIsActive())
+		DialogManager::GetInstance()->SetIsActive(false);
 }
 
 Pokemon* OakLab::CreateStarterPoke(std::string name)

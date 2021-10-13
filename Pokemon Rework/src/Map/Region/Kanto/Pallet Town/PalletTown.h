@@ -12,6 +12,11 @@ public:
 	virtual Map* SpawnAtCheckpoint() override;
 	virtual void Update() override;
 
+	void EncounterGary();
+
 private:
 	Map* route1 = nullptr;
+	bool garyEnountered = false;
+	bool isDoneMoving = false;
+
 };

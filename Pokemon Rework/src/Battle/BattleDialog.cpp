@@ -8,6 +8,12 @@ BattleDialog::BattleDialog()
 	fontSize = { Window::GetWidth() / 2 - 190, Window::GetHeight() - 115, 400, 40 };
 }
 
+BattleDialog::~BattleDialog()
+{
+	delete font;
+	delete mBox;
+}
+
 void BattleDialog::ShowDialog(std::string message)
 {
 	TypeDialog(message);

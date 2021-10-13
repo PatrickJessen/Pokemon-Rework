@@ -7,6 +7,7 @@ class BattleDialog
 {
 public:
 	BattleDialog();
+	~BattleDialog();
 
 	void ShowDialog(std::string message);
 

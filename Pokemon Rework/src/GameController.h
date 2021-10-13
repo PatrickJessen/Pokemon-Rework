@@ -23,6 +23,8 @@ private:
 	void StartBattle();
 	void ReturnToLastCheckpoint();
 
+	void AddQuests();
+
 private:
 	Scene* scene = nullptr;
 	PlayerController* controller = nullptr;

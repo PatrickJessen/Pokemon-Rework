@@ -244,6 +244,7 @@
     <ClInclude Include="src\Pokes\Pokemon.h" />
     <ClInclude Include="src\Pokes\SpawnPokes.h" />
     <ClInclude Include="src\Pokes\TypeChart.h" />
+    <ClInclude Include="src\Quest\Quest.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\UI\Text.h" />
     <ClInclude Include="src\Window\Window.h" />

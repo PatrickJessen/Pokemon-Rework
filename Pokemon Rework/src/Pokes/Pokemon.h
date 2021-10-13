@@ -23,6 +23,7 @@ struct Stats
 class Pokemon
 {
 public:
+	enum class GrowthRate { Fast, MediumFast };
 	Pokemon();
 	~Pokemon();
 
@@ -57,8 +58,15 @@ public:
 	Move* GetMoveAt(int x) { return moveset[x]; }
 	void AddLevel();
 	void SetLevel(int value) { stats.Level = value; }
+	int GetExp() { return experience; }
+	void SetExp(int value) { experience += value; }
+	GrowthRate growthRate;
+	int GetExpForLevel(int level);
+	int GetRequiredExp() { return requiredExp; }
+	int GetExpYield() { return expYield; }
 
 	std::string name;
+
 
 
 protected:
@@ -76,9 +84,10 @@ protected:
 	Move* moveset[4];
 	Move* currentMove = nullptr;
 	int hp;
-
-private:
 	int experience;
 	int requiredExp;
+	int expYield;
+
+private:
 	void InitMultipliers();
 };

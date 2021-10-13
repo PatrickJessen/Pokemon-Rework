@@ -4,7 +4,7 @@
 
 BattleSystem::~BattleSystem()
 {
-
+	delete poke;
 }
 
 void BattleSystem::PlayerAction()

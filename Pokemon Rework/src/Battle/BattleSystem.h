@@ -12,7 +12,7 @@ enum class BattleState
 class BattleSystem
 {
 public:
-	virtual ~BattleSystem() = 0;
+	~BattleSystem();
 
 public:
 	virtual void SetupBattle() = 0;
@@ -44,8 +44,10 @@ protected:
 	std::string message;
 	SDL_Rect playerHpBar;
 	SDL_Rect enemyHpBar;
+	SDL_Rect expBar;
 	int playerHpMaxWidth;
 	int enemyHpMaxWidth;
+	int expBarMaxWidth;
 	int timer = 0;
 	bool iWon = false;
 	bool end = false;

@@ -8,6 +8,7 @@ bool Charmander::OnPokemonCreate()
 		back = new Sprite("Assets/Pokemons/Back/4.png", SDL_ScaleMode::SDL_ScaleModeBest);
 		type = Type::FIRE;
 		name = "Charmander";
+		growthRate = GrowthRate::Fast;
 
 		InitStats(39, 52, 43, 60, 50, 65);
 		learnMoves.push_back(LearnableMove(9, new Move(Moves::EMBER, "Ember", Type::FIRE, 100, 40, Category::SPECIAL)));
@@ -18,6 +19,7 @@ bool Charmander::OnPokemonCreate()
 		learnMoves.push_back(LearnableMove(46, new Move(Moves::FIRESPIN, "Firespin", Type::FIRE, 85, 35, Category::SPECIAL)));
 		GenerateMoveset();
 		hp = stats.MaxHP;
+		requiredExp = GetExpForLevel(stats.Level);
 		return created = true;
 	}
 	return created = false;
@@ -40,7 +42,11 @@ void Charmander::GenerateMoveset()
 		moveset[2] = new Move(Moves::EMBER, "Ember", Type::FIRE, 100, 40, Category::SPECIAL);
 	}
 	else if (stats.Level >= 9 && stats.Level < 15)
+	{
+		moveset[1] = new Move(Moves::SCRATCH, "Scratch", Type::NORMAL, 100, 40, Category::PHYSICAL);
 		moveset[2] = new Move(Moves::EMBER, "Ember", Type::FIRE, 100, 40, Category::SPECIAL);
+
+	}
 	else if (stats.Level >= 15 && stats.Level < 22)
 		moveset[3] = new Move(Moves::LEER, "Leer", Type::NORMAL, 100, 0, Category::STATUS);
 	else if (stats.Level >= 22 && stats.Level < 30)
