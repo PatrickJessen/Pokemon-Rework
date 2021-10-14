@@ -170,6 +170,7 @@
     <ClCompile Include="src\Map\Region\Kanto\Pallet Town\OakLab.cpp" />
     <ClCompile Include="src\Map\Region\Kanto\Pallet Town\PalletTown.cpp" />
     <ClCompile Include="src\Map\Region\Kanto\Routes\Route1.cpp" />
+    <ClCompile Include="src\Map\Region\Kanto\Routes\RouteStop.cpp" />
     <ClCompile Include="src\Pokes\Gen1\Bulbasaur.cpp" />
     <ClCompile Include="src\Pokes\Gen1\Charizard.cpp" />
     <ClCompile Include="src\Pokes\Gen1\Charmander.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="src\Map\Region\Kanto\Pallet Town\OakLab.h" />
     <ClInclude Include="src\Map\Region\Kanto\Pallet Town\PalletTown.h" />
     <ClInclude Include="src\Map\Region\Kanto\Routes\Route1.h" />
+    <ClInclude Include="src\Map\Region\Kanto\Routes\RouteStop.h" />
     <ClInclude Include="src\Map\SpawnPokes.h" />
     <ClInclude Include="src\Pokes\Gen1\Bulbasaur.h" />
     <ClInclude Include="src\Pokes\Gen1\Charizard.h" />

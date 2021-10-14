@@ -24,6 +24,7 @@ PalletTown::PalletTown(Character* player, int width, int height, int tileSize, i
 
 	dynamic_cast<Trainer*>(player)->AddPokemonToBag(new Charmander(5));
 	dynamic_cast<Trainer*>(player)->GetPokemonAtIndex(0)->OnPokemonCreate();
+	std::cout << dynamic_cast<Trainer*>(player)->GetPokemonAtIndex(0)->GetStats().MaxHP << "\n";
 
 	/*npcs.push_back(new Npc("Shit", "Assets/Trainers/Gary.png", 70, 70, 62, 65));
 	npcs[0]->SetXYPosition(10 * tileSize * camera->GetZoom() - 5, 5 * tileSize * camera->GetZoom() - 9);*/

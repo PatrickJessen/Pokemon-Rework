@@ -35,6 +35,7 @@ public:
 	void OnUpdate();
 	void InitStats(int hp, int attack, int defense, float spAtk, float spDef, int speed);
 	void LevelUp();
+	void UpdateStats();
 
 	void Attack();
 	bool TakeDamage(Pokemon* attacker, int x);
@@ -87,6 +88,16 @@ protected:
 	int experience;
 	int requiredExp;
 	int expYield;
+
+protected:
+	//const stats
+	int defaultHP;
+	int defaultAttack;
+	int defaultDefense;
+	float defaultSPATK;
+	float defaultSPDEF;
+	int defaultSpeed;
+	int defaultLevel;
 
 private:
 	void InitMultipliers();

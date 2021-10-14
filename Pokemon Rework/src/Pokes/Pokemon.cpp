@@ -84,8 +84,24 @@ void Pokemon::LevelUp()
 	if (experience >= requiredExp)
 	{
 		AddLevel();
-		experience = 0;
+		int remains = experience - requiredExp;
+		UpdateStats();
+		experience = remains;
+		requiredExp = GetExpForLevel(stats.Level);
+		std::cout << stats.MaxHP << "\n";
 	}
+}
+
+void Pokemon::UpdateStats()
+{
+	stats.MaxHP = (int)floor((defaultHP * stats.Level) / 100.0f) + 10 + stats.Level;
+	stats.Attack = (int)floor((defaultAttack * stats.Level) / 100.0f) + 5;
+	stats.Defense = (int)floor((defaultDefense * stats.Level) / 100.0f) + 5;
+	stats.SPATK = (int)floor((defaultSPATK * stats.Level) / 100.0f) + 5;
+	stats.SPDEF = (int)floor((defaultSPDEF * stats.Level) / 100.0f) + 5;
+	stats.Speed = (int)floor((defaultSpeed * stats.Level) / 100.0f) + 5;
+
+	//hp = stats.MaxHP;
 }
 
 void Pokemon::Attack()
@@ -94,7 +110,6 @@ void Pokemon::Attack()
 
 bool Pokemon::TakeDamage(Pokemon* attacker, int x)
 {
-	srand(time(0));
 
 	float attackType = TypeChart::GetEffectiveness(attacker->GetMoveAt(x)->GetType(), GetType()) * TypeChart::GetEffectiveness(attacker->GetMoveAt(x)->GetType(), GetType());
 

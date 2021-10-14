@@ -11,6 +11,10 @@ public:
 	void Update();
 	SDL_Rect GetCamera() { return cam; }
 	SDL_Rect SetCamera() { return cam; }
+	/// <summary>
+	/// Used to set which target the camera should focus on
+	/// </summary>
+	/// <param name="target"></param>
 	void SetTarget(SDL_Rect* target);
 	SDL_Rect* GetTarget() { return target; }
 	int GetZoom() { return zoom; }

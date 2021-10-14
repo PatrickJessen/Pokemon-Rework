@@ -1,4 +1,5 @@
 #include "Route1.h"
+#include "RouteStop.h"
 
 Route1::Route1(Character* player, int width, int height, int tileSize, int zoneLevel, int zoom)
 {
@@ -16,6 +17,7 @@ Route1::Route1(Character* player, int width, int height, int tileSize, int zoneL
 	imagePath = "Assets/Map/Routes/Route1/Route1Sprites.map";
 
 	doors.emplace(0, std::vector<Vector2> {Vector2(50, 12), Vector2(50, 13), Vector2(50, 14), Vector2(50, 15), Vector2(50, 16), Vector2(50, 17), Vector2(50, 18)});
+	doors.emplace(1, std::vector<Vector2> {Vector2(4, 13), Vector2(4, 14)});
 
 	//pokesInThisZone.push_back(SpawnPokes(new Pidgey((rand() + zoneLevel + 1) % 6), 100, 70));
 	//pokesInThisZone.push_back(SpawnPokes(new Rattata((rand() + zoneLevel + 1) % 6), 100, 70));
@@ -45,7 +47,9 @@ Map* Route1::LoadNewMap()
 	break;
 	case 1:
 	{
-		
+		RouteStop* routeStop = new RouteStop(player, 25, 25, 32, 2, 1, true);
+		player->SetXYPosition(7 * tileSize * routeStop->GetCamera()->GetZoom() - 5, 22 * tileSize * routeStop->GetCamera()->GetZoom() - 8);
+		return routeStop;
 	}
 	break;
 	}
@@ -55,7 +59,7 @@ Map* Route1::LoadNewMap()
 Pokemon* Route1::SpawnPokemon()
 {
 	spawnedPoke = pokesInThisZone[Random::InRange(0, pokesInThisZone.size())].Pokemon;
-	spawnedPoke->SetLevel(3);
+	spawnedPoke->SetLevel(5);
 	spawnedPoke->OnPokemonCreate();
 	return spawnedPoke;
 }

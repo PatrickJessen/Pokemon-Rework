@@ -44,6 +44,10 @@ void PlayerController::Update(float elapsedTime)
 
 void PlayerController::Walk()
 {
+	if (Input::KeyState(Key::LSHIFT))
+		player->SetSpeed(16);
+	else
+		player->SetSpeed(4);
 	if (player->GetWalkDirect() == WalkDirection::UP)
 	{
 		timer += player->GetSpeed();

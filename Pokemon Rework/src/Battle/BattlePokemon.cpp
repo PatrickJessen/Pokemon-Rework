@@ -10,10 +10,10 @@ BattlePokemon::BattlePokemon(Character* player, Pokemon* pokemon)
 	this->player->SetInBattlePokemon(GetNextHealthyPokemon());
 	playerHpMaxWidth = 175;
 	enemyHpMaxWidth = 175;
-	expBarMaxWidth = 175;
+	expBarMaxWidth = 170;
 	enemyHpBar = { 417, 301, enemyHpMaxWidth, 10 };
 	playerHpBar = { 895, 648, playerHpMaxWidth, 10 };
-	expBar = { 895, 600, expBarMaxWidth, 10 };
+	expBar = { 910, 665, this->player->GetInBattlePokemon()->GetExp(), 10 };
 }
 
 BattlePokemon::BattlePokemon()
@@ -98,20 +98,15 @@ void BattlePokemon::PerformPlayerAttack()
 	{
 		if (hit == true)
 			t1.join();
-		if (IGoFirst())
-		{
+		//if (IGoFirst())
+		//{
 			poke->TakeDamage(player->GetInBattlePokemon(), currentMove);
 			//enemyHpBar.w = (poke->GetHP() * enemyHpMaxWidth) / poke->GetStats().MaxHP;
 			message = player->GetInBattlePokemon()->GetName() + " Used " + player->GetInBattlePokemon()->GetMoveAt(currentMove)->GetMoveName();
-			if (poke->GetHP() < 0)
-			{
-				int expYield = poke->GetExpYield();
-				int enemyLevel = poke->GetLevel();
-
-				int expGain = (expYield * enemyLevel * 1) / 7;
-				std::cout << player->GetInBattlePokemon()->GetExp() << "\n";
-				player->GetInBattlePokemon()->SetExp(expGain);
-				std::cout << player->GetInBattlePokemon()->GetExp() << "\n";
+			if (poke->GetHP() <= 0)
+			{			
+				GainExp(poke);
+				player->GetInBattlePokemon()->LevelUp();
 				state = BattleState::End;
 			}
 			else
@@ -119,12 +114,12 @@ void BattlePokemon::PerformPlayerAttack()
 				state = BattleState::EnemyMove;
 				t1 = std::thread(&BattlePokemon::PerformEnemyAttack, this);
 			}
-		}
+		/*}
 		else
 		{
 			state = BattleState::EnemyMove;
 			t1 = std::thread(&BattlePokemon::PerformEnemyAttack, this);
-		}
+		}*/
 	}
 }
 
@@ -133,7 +128,7 @@ void BattlePokemon::PerformEnemyAttack()
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 	player->GetInBattlePokemon()->TakeDamage(poke, PrioritiesEnemyMove(poke));
 	message = poke->GetName() + " Used " + poke->GetMoveAt(PrioritiesEnemyMove(poke))->GetMoveName();
-	if (player->GetInBattlePokemon()->GetHP() < 0)
+	if (player->GetInBattlePokemon()->GetHP() <= 0)
 	{
 		
 		message = player->GetInBattlePokemon()->GetName() + " Fainted!";
@@ -158,19 +153,20 @@ void BattlePokemon::EndBattle()
 	if (iWon && !end)
 	{
 		message = poke->GetName() + " Fainted";
-		player->SetIsInPokemonBattle(false);
-		end = true;
+		//player->SetIsInPokemonBattle(false);
+		//end = true;
 	}
 	else if (!iWon && !end)
 	{
 		message = "You got no more pokemons left";
-		player->SetIsInPokemonBattle(false);
-		end = true;
+		//player->SetIsInPokemonBattle(false);
+		//end = true;
 	}
 
 	if (Input::KeyPressed(Key::SPACE))
 	{
 		player->SetIsInPokemonBattle(false);
+		end = true;
 	}
 }
 

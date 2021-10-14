@@ -10,6 +10,13 @@ bool Charmander::OnPokemonCreate()
 		name = "Charmander";
 		growthRate = GrowthRate::Fast;
 
+		defaultHP = 39;
+		defaultAttack = 52;
+		defaultDefense = 43;
+		defaultSPATK = 60;
+		defaultSPDEF = 50;
+		defaultSpeed = 65;
+
 		InitStats(39, 52, 43, 60, 50, 65);
 		learnMoves.push_back(LearnableMove(9, new Move(Moves::EMBER, "Ember", Type::FIRE, 100, 40, Category::SPECIAL)));
 		learnMoves.push_back(LearnableMove(15, new Move(Moves::LEER, "Leer", Type::NORMAL, 100, 0, Category::STATUS)));
@@ -20,9 +27,10 @@ bool Charmander::OnPokemonCreate()
 		GenerateMoveset();
 		hp = stats.MaxHP;
 		requiredExp = GetExpForLevel(stats.Level);
-		return created = true;
+		created = true;
+		return true;
 	}
-	return created = false;
+	return false;
 }
 
 void Charmander::Evolve(int level)
@@ -40,6 +48,7 @@ void Charmander::GenerateMoveset()
 		moveset[0] = new Move(Moves::GROWL, "Growl", Type::NONE, 100, 0, Category::STATUS);
 		moveset[1] = new Move(Moves::SCRATCH, "Scratch", Type::NORMAL, 100, 40, Category::PHYSICAL);
 		moveset[2] = new Move(Moves::EMBER, "Ember", Type::FIRE, 100, 40, Category::SPECIAL);
+		moveset[3] = new Move(Moves::FLAMETHROWER, "Flamethrower", Type::FIRE, 100, 500, Category::SPECIAL);
 	}
 	else if (stats.Level >= 9 && stats.Level < 15)
 	{

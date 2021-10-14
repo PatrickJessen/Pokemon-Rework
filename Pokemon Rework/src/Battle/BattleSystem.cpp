@@ -119,6 +119,17 @@ int BattleSystem::IsEnemyMoveEffective(Pokemon* pokemon)
 	return 0;
 }
 
+void BattleSystem::GainExp(Pokemon* enemy)
+{
+	int expYield = enemy->GetExpYield();
+	int enemyLevel = enemy->GetLevel();
+
+	float trainerBonus = (player->GetIsInTrainerBattle()) ? 1.5f : 1.0f;
+
+	int expGain = (expYield * enemyLevel * trainerBonus) / 7;
+	player->GetInBattlePokemon()->SetExp(expGain);
+}
+
 int BattleSystem::RandNum(int x, int y)
 {
 	return x + (rand() / (RAND_MAX / (y - x)));

@@ -31,6 +31,7 @@ public:
 	int PrioritiesEnemyMove(Pokemon* pokemon);
 	int GetHighestDamageMove(Pokemon* pokemon);
 	int IsEnemyMoveEffective(Pokemon* pokemon);
+	void GainExp(Pokemon* enemy);
 
 	int RandNum(int x, int y);
 
@@ -53,5 +54,6 @@ protected:
 	bool end = false;
 	BattleDialog dialog;
 	std::thread t1;
+	std::thread expThread;
 	bool hit = false;
 };
