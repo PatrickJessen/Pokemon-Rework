@@ -1,5 +1,6 @@
 #include "RouteStop.h"
 #include "Route1.h"
+#include "../Viridian City/ViridianCity.h"
 
 RouteStop::RouteStop(Character* player, int width, int height, int tileSize, int zoneLevel, int zoom, bool isVertical)
 {
@@ -36,9 +37,9 @@ Map* RouteStop::LoadNewMap()
 	{
 	case 0:
 	{
-		/*pTown = new PalletTown(player, 31, 31, 32, 1, 2);
-		player->SetXYPosition(14 * tileSize * camera->GetZoom() - 5, 1 * tileSize * camera->GetZoom() - 8);
-		return pTown;*/
+		ViridianCity* viridian = new ViridianCity(player, 40, 40, 32, 1, 2);
+		player->SetXYPosition(10 * tileSize * viridian->GetCamera()->GetZoom() - 5, 10 * tileSize * viridian->GetCamera()->GetZoom() - 8);
+		return viridian;
 	}
 	break;
 	case 1:

@@ -20,6 +20,7 @@ public:
 	int GetZoom() { return zoom; }
 	void SetZoom(int value) { zoom = value; }
 	void SetOptions(int tileSize, int height, int extra);
+	void SetOptions(int tileSize, int height, int extra, int extraWidth);
 
 public:
 	void SetFollowPlayer(bool value) { followPlayer = value; }
@@ -33,4 +34,5 @@ private:
 	int tileSize;
 	int height;
 	int extra;
+	int extraWidth = 0;
 };

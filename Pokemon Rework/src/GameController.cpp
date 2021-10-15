@@ -2,6 +2,7 @@
 #include "Core/Collision.h"
 #include <iostream>
 #include "Battle/BattleTrainer.h"
+#include "Map/Region/Kanto/Viridian City/ViridianCity.h"
 
 GameController::GameController()
 {
@@ -104,6 +105,14 @@ void GameController::ConstantUpdate(float elapsedTime)
 		scene->GetPlayer()->SetCanWalk(false);
 	//else
 	//	state = GameState::Free;
+
+	if (Input::KeyPressed(Key::C))
+	{
+
+		scene->LoadNewScene(new ViridianCity(scene->GetPlayer(), 40, 40, 32, 1, 2));
+		delete controller;
+		controller = new PlayerController(scene->GetPlayer(), scene->GetMap());
+	}
 }
 
 void GameController::WalkInDoor()

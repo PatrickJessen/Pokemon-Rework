@@ -129,6 +129,9 @@
     <ClCompile Include="src\Map\Region\Kanto\Routes\RouteStop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Map\Region\Kanto\Viridian City\ViridianCity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libfreetype-6.dll" />
@@ -302,6 +305,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Map\Region\Kanto\Routes\RouteStop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Map\Region\Kanto\Viridian City\ViridianCity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

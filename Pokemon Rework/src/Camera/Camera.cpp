@@ -11,7 +11,6 @@ Camera::~Camera()
 
 void Camera::Update()
 {
-    // call this in each map class individually..
     if (followPlayer)
     {
         int temp = (tileSize * height) + extra;
@@ -21,8 +20,8 @@ void Camera::Update()
             cam.x = 0;
         if (cam.y < 0)
             cam.y = 0;
-        if (cam.x > Window::GetWidth() / 6 - cam.w)
-            cam.x = Window::GetWidth() / 6 - cam.w;
+        if (cam.x > (Window::GetWidth() / 6 - cam.w) + extraWidth)
+            cam.x = (Window::GetWidth() / 6 - cam.w) + extraWidth;
         if (cam.y > temp)
             cam.y = temp;
     }
@@ -50,4 +49,12 @@ void Camera::SetOptions(int tileSize, int height, int extra)
     this->tileSize = tileSize;
     this->height = height;
     this->extra = extra;
+}
+
+void Camera::SetOptions(int tileSize, int height, int extra, int extraWidth)
+{
+    this->tileSize = tileSize;
+    this->height = height;
+    this->extra = extra;
+    this->extraWidth = extraWidth;
 }
